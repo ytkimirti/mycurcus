@@ -1,29 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_memchr.c                                        :+:      :+:    :+:   */
+/*   ft_strchr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ykimirti <42istanbul.com.tr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/01/03 15:50:41 by ykimirti          #+#    #+#             */
-/*   Updated: 2022/01/03 17:17:44 by ykimirti         ###   ########.tr       */
+/*   Created: 2022/01/03 16:36:14 by ykimirti          #+#    #+#             */
+/*   Updated: 2022/01/03 16:53:04 by ykimirti         ###   ########.tr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdlib.h>
+#include <stdio.h>
 
-void	*ft_memchr(const void *s, int c, size_t n)
+char	*ft_strchr(const char *s, int c)
 {
-	size_t	i;
-
-	i = 0;
-	while (i < n)
+	while (*s != '\0' && *s != (char)c)
 	{
-		if (*(unsigned char *)(s + i) == (unsigned char)c)
-		{
-			return ((void *)(s + i));
-		}
-		i++;
+		s++;
 	}
-	return (NULL);
+	if (c != '\0' && *s == '\0')
+		return (NULL);
+	return ((char *)(s));
 }
+
+/*int	main(void)*/
+/*{*/
+	/*printf("%s\n", ft_strchr("Helloa", '\0'));*/
+/*}*/

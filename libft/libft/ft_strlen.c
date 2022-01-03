@@ -6,14 +6,15 @@
 /*   By: ykimirti <42istanbul.com.tr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/03 12:35:08 by ykimirti          #+#    #+#             */
-/*   Updated: 2022/01/03 12:44:22 by ykimirti         ###   ########.tr       */
+/*   Updated: 2022/01/03 17:43:19 by ykimirti         ###   ########.tr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 #include <stdlib.h>
 
-size_t ft_strlen(const char *s)
+size_t	ft_strlen(const char *s)
 {
-	int len;
+	size_t	len;
 
 	len = 0;
 	while (*s != 0)
@@ -21,5 +22,5 @@ size_t ft_strlen(const char *s)
 		s++;
 		len++;
 	}
-	return len;
+	return (len);
 }

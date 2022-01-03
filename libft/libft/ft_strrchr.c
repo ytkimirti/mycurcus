@@ -1,29 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_memchr.c                                        :+:      :+:    :+:   */
+/*   ft_strrchr.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ykimirti <42istanbul.com.tr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/01/03 15:50:41 by ykimirti          #+#    #+#             */
-/*   Updated: 2022/01/03 17:17:44 by ykimirti         ###   ########.tr       */
+/*   Created: 2022/01/03 16:53:49 by ykimirti          #+#    #+#             */
+/*   Updated: 2022/01/03 17:50:04 by ykimirti         ###   ########.tr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdlib.h>
+#include <stdio.h>
+#include "libft.h"
 
-void	*ft_memchr(const void *s, int c, size_t n)
+char	*ft_strrchr(const char *s, int c)
 {
-	size_t	i;
+	int	i;
 
-	i = 0;
-	while (i < n)
+	i = ft_strlen((char *)s);
+	while (i >= 0)
 	{
-		if (*(unsigned char *)(s + i) == (unsigned char)c)
+		if ((char)c == (char)s[i])
 		{
-			return ((void *)(s + i));
+			return ((char *)(s + i));
 		}
-		i++;
+		i--;
 	}
 	return (NULL);
 }

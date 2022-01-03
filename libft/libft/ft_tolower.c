@@ -1,29 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_memchr.c                                        :+:      :+:    :+:   */
+/*   ft_tolower.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ykimirti <42istanbul.com.tr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/01/03 15:50:41 by ykimirti          #+#    #+#             */
-/*   Updated: 2022/01/03 17:17:44 by ykimirti         ###   ########.tr       */
+/*   Created: 2022/01/03 16:32:37 by ykimirti          #+#    #+#             */
+/*   Updated: 2022/01/03 16:35:16 by ykimirti         ###   ########.tr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdlib.h>
-
-void	*ft_memchr(const void *s, int c, size_t n)
+int	ft_tolower(int c)
 {
-	size_t	i;
-
-	i = 0;
-	while (i < n)
+	if (c >= 'A' && c <= 'Z')
 	{
-		if (*(unsigned char *)(s + i) == (unsigned char)c)
-		{
-			return ((void *)(s + i));
-		}
-		i++;
+		return (c + 32);
 	}
-	return (NULL);
+	return (c);
 }
