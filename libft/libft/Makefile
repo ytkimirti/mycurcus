@@ -13,7 +13,7 @@ CFLAGS=-I. -Wall -Wextra -Werror
 
 .PHONY: all clean fclean re bonus
 
-all: fclean $(NAME)
+all:  $(NAME)
 
 $(NAME): $(OBJS)
 	ar rcs $(NAME) $(OBJS)
