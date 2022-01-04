@@ -10,7 +10,7 @@ void	myprint(char *str, int len)
 		len--;
 		if (*str == '\0')
 		{
-			write(1, &"0", 1);
+			write(1, &"^", 1);
 		}
 		else {
 			write(1, str, 1);
