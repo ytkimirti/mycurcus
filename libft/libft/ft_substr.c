@@ -1,31 +1,43 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_calloc.c                                        :+:      :+:    :+:   */
+/*   ft_substr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ykimirti <42istanbul.com.tr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/01/04 13:58:35 by ykimirti          #+#    #+#             */
-/*   Updated: 2022/01/04 17:19:47 by ykimirti         ###   ########.tr       */
+/*   Created: 2022/01/04 14:20:14 by ykimirti          #+#    #+#             */
+/*   Updated: 2022/01/04 16:06:46 by ykimirti         ###   ########.tr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdio.h>
 #include <stdlib.h>
+#include "libft.h"
 
-void	*ft_calloc(size_t count, size_t size)
+static int	min(int a, int b)
 {
-	char	*p;
-	size_t	i;
+	if (a < b)
+		return (a);
+	return (b);
+}
 
-	p = malloc(count * size);
-	if (p == NULL)
+char	*ft_substr(char const *s, unsigned int start, size_t len)
+{
+	int		memsize;
+	char	*new_str;
+	int		i;
+
+	memsize = min((int)ft_strlen(s) - (int)start, (int)len) + 1;
+	if (memsize <= 0)
+		return (ft_strdup(""));
+	new_str = (char *)malloc(memsize);
+	if (new_str == NULL)
 		return (NULL);
 	i = 0;
-	while (i < count * size)
+	while (i < memsize - 1)
 	{
-		p[i] = 0;
+		new_str[i] = s[start + i];
 		i++;
 	}
-	return ((void *)(p));
+	new_str[memsize - 1] = '\0';
+	return (new_str);
 }

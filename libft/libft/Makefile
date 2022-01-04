@@ -18,8 +18,10 @@ all:  $(NAME)
 $(NAME): $(OBJS)
 	ar rcs $(NAME) $(OBJS)
 
-%.o: %.c $(DEPS)
-	$(CC) -c $^
+derle: test.o ft_strlen.o
+
+%.o: %.c
+	$(CC) $(CFLAGS) -c $^
 
 clean:
 	rm -f $(OBJS) $(BONUS_OBJS)

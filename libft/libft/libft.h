@@ -6,7 +6,7 @@
 /*   By: ykimirti <42istanbul.com.tr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/03 14:58:39 by ykimirti          #+#    #+#             */
-/*   Updated: 2022/01/03 16:56:17 by ykimirti         ###   ########.tr       */
+/*   Updated: 2022/01/04 15:50:10 by ykimirti         ###   ########.tr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,5 +24,6 @@ int		ft_isprint(int c);
 void	*ft_memcpy(char *dst, const char *src, size_t n);
 void	*memmove(void *dst, const void *src, size_t len);
 size_t	ft_strlen(const char *s);
+char	*ft_strdup(const char *s1);
 
 #endif

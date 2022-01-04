@@ -1,31 +1,41 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_calloc.c                                        :+:      :+:    :+:   */
+/*   ft_strjoin.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ykimirti <42istanbul.com.tr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/01/04 13:58:35 by ykimirti          #+#    #+#             */
-/*   Updated: 2022/01/04 17:19:47 by ykimirti         ###   ########.tr       */
+/*   Created: 2022/01/04 16:07:10 by ykimirti          #+#    #+#             */
+/*   Updated: 2022/01/04 17:21:05 by ykimirti         ###   ########.tr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdio.h>
 #include <stdlib.h>
+#include "libft.h"
+#include <stdio.h>
 
-void	*ft_calloc(size_t count, size_t size)
+char	*ft_strjoin(const char *s1, const char *s2)
 {
-	char	*p;
+	size_t	memsize;
 	size_t	i;
+	char	*new_str;
+	size_t	len_s1;
 
-	p = malloc(count * size);
-	if (p == NULL)
+	len_s1 = ft_strlen(s1);
+	memsize = ft_strlen(s1) + ft_strlen(s2) + 1;
+	new_str = (char *)malloc(memsize * sizeof(char));
+	if (new_str == NULL)
 		return (NULL);
 	i = 0;
-	while (i < count * size)
+	while (i < memsize && s1[i] != '\0')
 	{
-		p[i] = 0;
+		new_str[i] = s1[i];
 		i++;
 	}
-	return ((void *)(p));
+	while (i < memsize)
+	{
+		new_str[i] = s2[i - len_s1];
+		i++;
+	}
+	return (new_str);
 }

@@ -6,56 +6,43 @@
 /*   By: ykimirti <42istanbul.com.tr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/04 14:01:01 by ykimirti          #+#    #+#             */
-/*   Updated: 2022/01/04 14:04:04 by ykimirti         ###   ########.tr       */
+/*   Updated: 2022/01/04 14:59:30 by ykimirti         ###   ########.tr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-static _Bool	ft_isspace(char c)
+#include "libft.h"
+
+static int	ft_isspace(char c)
 {
-	if (c == '\t' || c == '\n' || c == '\v' || c == '\f' || c == '\r')
-		return (1);
-	else if (c == ' ')
-		return (1);
-	else
-		return (0);
+	return (c == ' ' || c == '\f' || c == '\n' || c == '\r'
+		|| c == '\t' || c == '\v');
 }
 
-static _Bool	is_num(char c)
+int	ft_atoi(const char *nptr)
 {
-	return (c >= '0' && c <= '9');
-}
+	size_t	i;
+	int		sign;
+	long	res;
 
-static int	find_num(char *p, int curr)
-{
-	if (is_num(*p))
-		return (find_num(p + 1, curr * 10 + (*p - '0')));
-	return (curr);
-}
-
-int	ft_atoi(char *str)
-{
-	char	*mem;
-	int		negcount;
-
-	negcount = 0;
-	mem = str;
-	while (ft_isspace(*str))
+	i = 0;
+	res = 0;
+	sign = 1;
+	while (ft_isspace(nptr[i]))
+		++i;
+	if (nptr[i] == '-' || nptr[i] == '+')
 	{
-		str++;
+		if (nptr[i] == '-')
+			sign = -1;
+		++i;
 	}
-	while (*str == '-' || *str == '+')
+	while ('0' <= nptr[i] && nptr[i] <= '9')
 	{
-		if (*str == '-')
-			negcount++;
-		str++;
+		res = res * 10 + (nptr[i] - '0');
+		if (res > 2147483647 && sign == 1)
+			return (-1);
+		if (res > 2147483648 && sign == -1)
+			return (0);
+		++i;
 	}
-	return (find_num(str, 0) * ((((negcount + 1) % 2) * 2) - 1));
-
-}
-#include <stdio.h>
-#include <stdlib.h>
-
-int	main(void)
-{
-	printf("%i\n", atoi("-99999999999999999999999"));
+	return (sign * res);
 }
