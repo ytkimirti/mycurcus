@@ -6,12 +6,12 @@
 /*   By: ykimirti <42istanbul.com.tr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/03 12:21:49 by ykimirti          #+#    #+#             */
-/*   Updated: 2022/01/03 12:46:14 by ykimirti         ###   ########.tr       */
+/*   Updated: 2022/01/04 19:40:46 by ykimirti         ###   ########.tr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "libft.h"
 
 int	ft_isalnum(int c)
 {
-	return ft_isalpha(c) || ft_isdigit(c);
+	return (ft_isalpha(c) || ft_isdigit(c));
 }
