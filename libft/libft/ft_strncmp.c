@@ -1,19 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strcmp.c                                        :+:      :+:    :+:   */
+/*   ft_strncmp.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ykimirti <42istanbul.com.tr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/03 15:56:29 by ykimirti          #+#    #+#             */
-/*   Updated: 2022/01/04 19:41:29 by ykimirti         ###   ########.tr       */
+/*   Updated: 2022/01/05 12:45:55 by ykimirti         ###   ########.tr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdlib.h>
 #include <stdio.h>
 
-int	ft_strncmp(char *s1, char *s2, unsigned int n)
+int	ft_strncmp(const char *s1, const char *s2, size_t n)
 {
 	unsigned int	c;
 	int				diff;
@@ -29,16 +29,3 @@ int	ft_strncmp(char *s1, char *s2, unsigned int n)
 		diff = (unsigned char)s1[c] - (unsigned char)s2[c];
 	return (diff);
 }
-
-/*int	ft_memcmp(const char *s1, const char *s2, size_t n)*/
-/*{*/
-	/*while (n > 0 && *s1 == *s2)*/
-	/*{*/
-		/*n--;*/
-		/*s1++;*/
-		/*s2++;*/
-	/*}*/
-	/*if (n <= 0)*/
-		/*return (0);*/
-	/*return ((int)(*(unsigned char *)s1 - *(unsigned char *)s2));*/
-/*}*/
