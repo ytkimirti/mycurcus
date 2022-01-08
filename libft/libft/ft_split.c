@@ -6,82 +6,67 @@
 /*   By: ykimirti <42istanbul.com.tr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/04 17:56:04 by ykimirti          #+#    #+#             */
-/*   Updated: 2022/01/04 19:41:25 by ykimirti         ###   ########.tr       */
+/*   Updated: 2022/01/06 16:36:58 by ykimirti         ###   ########.tr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdlib.h>
+#include <stdio.h>
+#include "libft.h"
 
-static int	strl(char *str, char key)
+static int	find_end(const char *str, char key)
 {
-	int	i;
+	const char	*mem;
 
-	i = 0;
-	while (str[i] != 0 && str[i] != key)
-		i++;
-	return (i);
+	mem = str;
+	while (*str != '\0' && *str != key)
+		str++;
+	return (str - mem + 1);
 }
 
-static int	find_str(char *str, char key)
+static int	count_char(const char *str, char key)
 {
-	int	i;
-	int	c;
+	int	count;
 
-	i = 0;
-	c = 0;
-	while (*str != 0)
+	count = 0;
+	while (*str != '\0')
 	{
-		while (*str == key && *str != 0)
+		while (*str == key && *str != '\0')
 			str++;
-		if (*str == 0)
-			return (c);
-		c++;
-		while (*str != key && *str != 0)
+		if (*str == '\0')
+			return (count);
+		while (*str != key && *str != '\0')
 			str++;
+		count++;
 	}
-	return (c);
+	return (count);
 }
 
-static char	*strcopy(char *dest, char *src, int n)
+char	**ft_split(const char *str, char key)
 {
-	int	i;
-
-	i = 0;
-	while (*src != 0 && i < n)
-	{
-		*dest = *src;
-		src++;
-		dest++;
-		i++;
-	}
-	*dest = 0;
-	return (dest);
-}
-
-char	**ft_split(char *str, char key)
-{
-	char	**str_m;
-	int		c;
+	char	**list;
+	int		list_index;
 	int		i;
+	int		list_len;
 
-	i = 0;
-	c = find_str(str, key);
-	str_m = (char **)malloc(sizeof(char *) * (c + 1));
-	if (str_m == NULL)
+	if (!str)
 		return (NULL);
-	while (i < c)
+	list_len = count_char(str, key);
+	list = (char **)malloc(sizeof(char *) * (list_len + 1));
+	if (!list)
+		return (NULL);
+	list_index = 0;
+	while (*str != '\0' && list_index < list_len)
 	{
-		while (*str == key && *str != 0)
+		while (*str == key && *str != '\0')
 			str++;
-		if (*str == 0)
-			return (str_m);
-		str_m[i] = (char *)malloc((strl(str, key) + 1) * sizeof(char));
-		if (str_m[i] == NULL)
-			return (NULL);
-		strcopy(str_m[i], str, strl(str, key));
-		while (*str != key && *str != 0)
-			str++;
-		i++;
+		i = 0;
+		list[list_index] = (char *)malloc(sizeof(char) * find_end(str, key));
+		while (*str != key && *str != '\0')
+			list[list_index][i++] = *str++;
+		list[list_index][i] = '\0';
+		list_index++;
 	}
-	return (str_m[c] = 0, str_m);
+	list[list_index] = NULL;
+	return (list);
 }

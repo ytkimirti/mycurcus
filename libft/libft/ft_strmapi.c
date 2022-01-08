@@ -6,7 +6,7 @@
 /*   By: ykimirti <42istanbul.com.tr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/04 19:12:09 by ykimirti          #+#    #+#             */
-/*   Updated: 2022/01/04 19:41:39 by ykimirti         ###   ########.tr       */
+/*   Updated: 2022/01/06 16:40:35 by ykimirti         ###   ########.tr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,8 @@ char	*ft_strmapi(char const *s, char (*f)(unsigned int, char))
 	char	*new_str;
 	size_t	i;
 
+	if (!s || !f)
+		return (NULL);
 	len = ft_strlen(s);
 	new_str = (char *)malloc((len + 1) * sizeof(char));
 	if (new_str == NULL)

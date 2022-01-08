@@ -6,7 +6,7 @@
 /*   By: ykimirti <42istanbul.com.tr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/04 17:22:13 by ykimirti          #+#    #+#             */
-/*   Updated: 2022/01/04 19:42:32 by ykimirti         ###   ########.tr       */
+/*   Updated: 2022/01/06 15:56:34 by ykimirti         ###   ########.tr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,8 @@ char	*ft_strtrim(char const *s1, char const *set)
 	char		*new_str;
 	int			i;
 
+	if (!s1 || !set)
+		return (NULL);
 	if (ft_strlen(s1) == 0)
 		return (ft_strdup(""));
 	start = s1;

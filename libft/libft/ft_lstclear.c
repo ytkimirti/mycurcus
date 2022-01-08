@@ -6,7 +6,7 @@
 /*   By: ykimirti <42istanbul.com.tr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/05 16:53:27 by ykimirti          #+#    #+#             */
-/*   Updated: 2022/01/05 20:27:01 by ykimirti         ###   ########.tr       */
+/*   Updated: 2022/01/06 15:52:09 by ykimirti         ###   ########.tr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,8 @@ void	ft_lstclear(t_list **lst, void (*del)(void *))
 	while (p != NULL)
 	{
 		next = p->next;
-		/*ft_lstdelone(p, del);*/
-
+		del(p->content);
+		free(p);
 		p = next;
 	}
 	*lst = NULL;

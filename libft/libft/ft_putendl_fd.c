@@ -6,7 +6,7 @@
 /*   By: ykimirti <42istanbul.com.tr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/04 19:21:28 by ykimirti          #+#    #+#             */
-/*   Updated: 2022/01/04 19:41:19 by ykimirti         ###   ########.tr       */
+/*   Updated: 2022/01/06 16:41:20 by ykimirti         ###   ########.tr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 
 void	ft_putendl_fd(char *str, int fd)
 {
+	if (!str)
+		return ;
 	while (*str != 0)
 	{
 		write(fd, str++, 1);

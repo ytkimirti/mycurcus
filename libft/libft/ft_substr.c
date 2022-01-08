@@ -6,7 +6,7 @@
 /*   By: ykimirti <42istanbul.com.tr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/04 14:20:14 by ykimirti          #+#    #+#             */
-/*   Updated: 2022/01/04 19:42:34 by ykimirti         ###   ########.tr       */
+/*   Updated: 2022/01/06 15:54:08 by ykimirti         ###   ########.tr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,8 @@ char	*ft_substr(char const *s, unsigned int start, size_t len)
 	char	*new_str;
 	int		i;
 
+	if (!s)
+		return (NULL);
 	memsize = min((int)ft_strlen(s) - (int)start, (int)len) + 1;
 	if (memsize <= 0)
 		return (ft_strdup(""));
