@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.c                                    :+:      :+:    :+:   */
+/*   get_next_line_bonus.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ykimirti <42istanbul.com.tr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/12 12:08:51 by ykimirti          #+#    #+#             */
-/*   Updated: 2022/01/12 14:00:03 by ykimirti         ###   ########.tr       */
+/*   Updated: 2022/01/12 14:09:10 by ykimirti         ###   ########.tr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 #include <stdlib.h>
 #include <fcntl.h>
 #include <unistd.h>
-#include "get_next_line.h"
+#include "get_next_line_bonus.h"
 
 #ifndef BUFFER_SIZE
 # define BUFFER_SIZE 5
@@ -88,19 +88,19 @@ char	*read_until_nl(int fd, char *str)
 
 char	*get_next_line(int fd)
 {
-	static char	*str;
+	static char	*str[1024];
 	char		*before;
 
-	if (fd < 0 || BUFFER_SIZE <= 0)
+	if (fd < 0 || fd >= 1024 || BUFFER_SIZE <= 0)
 		return (NULL);
-	if (str == NULL)
-		str = ft_strdup("");
-	str = read_until_nl(fd, str);
-	if (!str)
+	if (str[fd] == NULL)
+		str[fd] = ft_strdup("");
+	str[fd] = read_until_nl(fd, str[fd]);
+	if (!str[fd])
 		return (NULL);
-	before = get_before_nl(str);
+	before = get_before_nl(str[fd]);
 	if (!before)
 		return (NULL);
-	str = get_after_nl(str);
+	str[fd] = get_after_nl(str[fd]);
 	return (before);
 }

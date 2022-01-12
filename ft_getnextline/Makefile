@@ -3,7 +3,7 @@ NAME=a.out
 SRCS=get_next_line.c get_next_line_utils.c
 OBJS=$(SRCS:.c=.o)
 
-BONUS=
+BONUS=get_next_line_bonus.c get_next_line_utils_bonus.c
 BONUS_OBJS=$(BONUS:.c=.o)
 
 CC=gcc
@@ -33,6 +33,3 @@ re: fclean all
 
 bonus: $(OBJS) $(BONUS_OBJS)
 	$(CC) $(CFLAGS) -o $(NAME) $(OBJS) $(BONUS_OBJS)
-
-test: $(OBJS) $(TEST_OBJS) $(TEST_LIB)
-	$(CC) $(CFLAGS) -o $(NAME) $^
