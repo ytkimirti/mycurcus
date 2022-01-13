@@ -1,24 +1,29 @@
-NAME=a.out
+NAME=libftprintf.a
+LIBFT=libft/libft.a
 
-SRCS=get_next_line.c get_next_line_utils.c
+# REMOVE THIS WHEN PUSHING
+SRCS=printf.c utils.c
 OBJS=$(SRCS:.c=.o)
 
-BONUS=get_next_line_bonus.c get_next_line_utils_bonus.c
+BONUS=
 BONUS_OBJS=$(BONUS:.c=.o)
 
 CC=gcc
-CFLAGS=-I. -Wall -Wextra -Werror
+CFLAGS=-Wall -Wextra -Werror
 
 TEST=test.c
 TEST_OBJS=$(TEST:.c=.o)
 TEST_LIB=./munit/munit.c
+TEST_LIB_OBJS=$(TEST_LIB:.c=.o)
 
-.PHONY: all clean fclean re bonus
+.PHONY: all clean fclean re bonus makelib test
 
 all: $(NAME)
 
 $(NAME): $(OBJS)
-	gcc $(CFLAGS) -o $(NAME) $(OBJS)
+	make bonus -C ./libft
+	cp libft/libft.a $(NAME)
+	ar rcs $@ $(OBJS)
 
 %.o: %.c
 	$(CC) $(CFLAGS) -c $^
@@ -31,5 +36,10 @@ fclean: clean
 
 re: fclean all
 
-bonus: $(OBJS) $(BONUS_OBJS)
-	$(CC) $(CFLAGS) -o $(NAME) $(OBJS) $(BONUS_OBJS)
+#bonus: $(OBJS) $(BONUS_OBJS)
+	#$(CC) $(CFLAGS) -o $(NAME) $(OBJS) $(BONUS_OBJS)
+
+test: makelib $(TEST_OBJS) $(OBJS) $(TEST_LIB_OBJS)
+	gcc -o test $^
+	./test
+
