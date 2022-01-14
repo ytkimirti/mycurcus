@@ -6,11 +6,12 @@
 /*   By: ykimirti <42istanbul.com.tr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/03 12:35:08 by ykimirti          #+#    #+#             */
-/*   Updated: 2022/01/04 19:41:37 by ykimirti         ###   ########.tr       */
+/*   Updated: 2022/01/13 14:53:03 by ykimirti         ###   ########.tr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdlib.h>
+#include <stdio.h>
 
 size_t	ft_strlen(const char *s)
 {
