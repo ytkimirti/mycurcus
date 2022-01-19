@@ -10,7 +10,7 @@ BONUS=
 BONUS_OBJS=$(BONUS:.c=.o)
 
 CC=gcc
-CFLAGS=-Wall -Wextra -Imlx
+CFLAGS=-g -Wall -Wextra -Imlx
 #CFLAGS=-Wall -Wextra -Werror -Imlx
 
 TEST=
@@ -20,13 +20,18 @@ TEST_LIB_OBJS=$(TEST_LIB:.c=.o)
 
 .PHONY: all clean fclean re bonus test makelib
 
-run: all
-	./$(NAME)
 
 all: $(NAME)
 
+run: all
+	./$(NAME)
+
 makelib:
 	make -C $(LIBFT_DIR)
+
+debug: $(NAME)
+	echo ">------  DEBUG MODE --------<"
+	lldb ./$(NAME)
 
 $(NAME): $(OBJS)
 	$(CC) $(OBJS) -L./libmlx -lmlx -framework OpenGL -framework AppKit -o $(NAME)
@@ -42,6 +47,7 @@ fclean: clean
 	rm -f $(NAME)
 
 re: fclean all
+
 
 test: makelib $(TEST_OBJS) $(OBJS) $(TEST_LIB_OBJS)
 	gcc -o test $^

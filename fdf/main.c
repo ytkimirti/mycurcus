@@ -6,7 +6,7 @@
 /*   By: ykimirti <42istanbul.com.tr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/14 17:06:29 by ykimirti          #+#    #+#             */
-/*   Updated: 2022/01/19 17:42:36 by ykimirti         ###   ########.tr       */
+/*   Updated: 2022/01/19 19:07:24 by ykimirti         ###   ########.tr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,9 @@
 #include <stdio.h>
 #include <unistd.h>
 #include "libft/libft.h"
+
+#define SX 400
+#define SY 200
 
 enum {
 	KEY_ESCAPE=53
@@ -57,8 +60,17 @@ int	handle_keydown(int keycode, t_vars *vars)
 
 int	update(t_vars *vars)
 {
+	static int xpos;
+	static int ypos;
+
+	xpos += 1;
+	ypos += 1;
+
+
+
 	// Draw shit
-	draw_square(vars->buf, 30, 30, 50, 40, 0x00FF0000);
+	draw_square(vars->buf, xpos - 20, ypos - 20, 40, 40, 0x00FF0000);
+	/*draw_square(vars->buf, 20, 20, 40, 40, 0x00FFFFFF);*/
 
 
 	// Render
@@ -70,17 +82,14 @@ int	update(t_vars *vars)
 int	main(void)
 {
 	t_vars	vars;
-	int		sx;
-	int		sy;
-
-	sx = 400;
-	sy = 200;
 
 	vars.mlx = mlx_init();
 
-	vars.win = mlx_new_window(vars.mlx, sx, sy, "Why  sdyou not running???");
+	vars.win = mlx_new_window(vars.mlx, SX, SY, "Why  sdyou not running???");
 
-	vars.buf->img = mlx_new_image(vars.mlx, sx, sy);
+	vars.buf = malloc(sizeof(t_data));
+
+	vars.buf->img = mlx_new_image(vars.mlx, SX, SY);
 
 	vars.buf->addr = mlx_get_data_addr(vars.buf->img,
 								&vars.buf->bits_per_pixel,
