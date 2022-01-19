@@ -3,14 +3,15 @@ LIBFT=libft/libft.a
 LIBFT_DIR=./libft
 
 # REMOVE THIS WHEN PUSHING
-SRCS=*.c
+SRCS=main.c utils.c
 OBJS=$(SRCS:.c=.o)
 
 BONUS=
 BONUS_OBJS=$(BONUS:.c=.o)
 
 CC=gcc
-CFLAGS=-Wall -Wextra -Werror -Imlx
+CFLAGS=-Wall -Wextra -Imlx
+#CFLAGS=-Wall -Wextra -Werror -Imlx
 
 TEST=
 TEST_OBJS=$(TEST:.c=.o)
