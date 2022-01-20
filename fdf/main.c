@@ -6,7 +6,7 @@
 /*   By: ykimirti <42istanbul.com.tr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/14 17:06:29 by ykimirti          #+#    #+#             */
-/*   Updated: 2022/01/19 19:07:24 by ykimirti         ###   ########.tr       */
+/*   Updated: 2022/01/20 14:01:35 by ykimirti         ###   ########.tr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,13 @@ enum {
 	KEY_ESCAPE=53
 };
 
+typedef struct s_state {
+	int xpos;
+	int ypos;
+	int xvel;
+	int yvel;
+} t_state;
+
 void	draw_square(t_data *data, int ox, int oy, int sx, int sy, int color)
 {
 	for (int x = 0; x < sx; x++)
@@ -58,16 +65,30 @@ int	handle_keydown(int keycode, t_vars *vars)
 	return (0);
 }
 
+void	update_player(t_state *state)
+{
+	
+}
+
+void	draw_player(t_state *state)
+{
+
+}
+
 int	update(t_vars *vars)
 {
 	static int xpos;
 	static int ypos;
+
+	// Draw bg
+	draw_square(vars->buf, 0, 0, SX, SY, 0x00FFFFFF);
 
 	xpos += 1;
 	ypos += 1;
 
 
 
+	update_player(vars->state);
 	// Draw shit
 	draw_square(vars->buf, xpos - 20, ypos - 20, 40, 40, 0x00FF0000);
 	/*draw_square(vars->buf, 20, 20, 40, 40, 0x00FFFFFF);*/
