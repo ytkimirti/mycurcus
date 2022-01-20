@@ -6,7 +6,7 @@
 /*   By: ykimirti <42istanbul.com.tr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/19 13:11:22 by ykimirti          #+#    #+#             */
-/*   Updated: 2022/01/19 13:22:19 by ykimirti         ###   ########.tr       */
+/*   Updated: 2022/01/20 14:53:48 by ykimirti         ###   ########.tr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,4 +55,10 @@ int	get_g(int trgb)
 int	get_b(int trgb)
 {
 	return (trgb & 0xFF);
+}
+
+void	clear_line()
+{
+	printf("\x1b[1F"); // Move to beginning of previous line 
+	printf("\x1b[2K"); // Clear entire line
 }

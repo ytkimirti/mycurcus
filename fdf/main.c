@@ -6,7 +6,7 @@
 /*   By: ykimirti <42istanbul.com.tr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/14 17:06:29 by ykimirti          #+#    #+#             */
-/*   Updated: 2022/01/20 14:01:35 by ykimirti         ###   ########.tr       */
+/*   Updated: 2022/01/20 16:58:58 by ykimirti         ###   ########.tr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,16 +31,7 @@
 #define SX 400
 #define SY 200
 
-enum {
-	KEY_ESCAPE=53
-};
-
-typedef struct s_state {
-	int xpos;
-	int ypos;
-	int xvel;
-	int yvel;
-} t_state;
+#define GRAVITY 1
 
 void	draw_square(t_data *data, int ox, int oy, int sx, int sy, int color)
 {
@@ -53,49 +44,99 @@ void	draw_square(t_data *data, int ox, int oy, int sx, int sy, int color)
 	}
 }
 
-int	handle_keydown(int keycode, t_vars *vars)
+
+void	player_jump(t_state *state)
 {
-	if (keycode == KEY_ESCAPE)
-	{
-		printf("%s\n", "Closing window...\n");
-		mlx_destroy_window(vars->mlx, vars->win);
-		return (0);
-	}
-	printf("Keycode: %d p: %p\n", keycode, vars);
-	return (0);
+	state->yvel = 10;
 }
 
 void	update_player(t_state *state)
 {
-	
+	// Update velocities
+	state->yvel -= GRAVITY;
+
+
+	// Update position
+	state->ypos -= state->yvel;
+	state->xpos += state->xvel;
+
+	// Update collisions
+	if (state->ypos >= SY - 20)
+	{
+		state->yvel = 0;
+		state->ypos = SY - 20;
+	}
 }
 
-void	draw_player(t_state *state)
+void	draw_player(t_vars *vars, t_state *state)
 {
-
+	draw_square(vars->buf, state->xpos - 20, state->ypos - 20, 40, 40, 0x00FF0000);
 }
 
 int	update(t_vars *vars)
 {
-	static int xpos;
-	static int ypos;
+	t_state	*state;
+
+	// Init
+	state = vars->state;
 
 	// Draw bg
 	draw_square(vars->buf, 0, 0, SX, SY, 0x00FFFFFF);
 
-	xpos += 1;
-	ypos += 1;
 
+	update_player(state);
 
-
-	update_player(vars->state);
-	// Draw shit
-	draw_square(vars->buf, xpos - 20, ypos - 20, 40, 40, 0x00FF0000);
-	/*draw_square(vars->buf, 20, 20, 40, 40, 0x00FFFFFF);*/
-
+	// Draw
+	draw_player(vars, state);
 
 	// Render
 	mlx_put_image_to_window(vars->mlx, vars->win, vars->buf->img, 0, 0);
+
+	clear_line();
+
+	for (int i = 0; i < 64; i++)
+	{
+		if (CHK_BIT(state->keys, i))
+			printf("1");
+		else
+			printf("0");
+	}
+	printf("\n");
+
+	return (0);
+}
+
+int	handle_keydown(int keycode, t_vars *vars)
+{
+	char bitpos;
+
+	bitpos = vars->state->key_bit_positions[keycode];
+	/*printf("BITPOS of %d is %d\n", keycode, bitpos);*/
+	SET_BIT(vars->state->keys, bitpos);
+
+	if (keycode == KEY_ESCAPE)
+	{
+		/*printf("%s\n", "Closing window...\n");*/
+		mlx_destroy_window(vars->mlx, vars->win);
+	}
+	else if (keycode == KEY_UP)
+	{
+		player_jump(vars->state);
+	}
+	else {
+		/*printf("Keycode: %d p: %p\n", keycode, vars);*/
+	}
+
+	return (0);
+}
+
+int	handle_keyup(int keycode, t_vars *vars)
+{
+	char bitpos;
+
+	bitpos = vars->state->key_bit_positions[keycode];
+
+	CLR_BIT(vars->state->keys, bitpos);
 
 	return (0);
 }
@@ -104,11 +145,13 @@ int	main(void)
 {
 	t_vars	vars;
 
+	// INIT MLX
 	vars.mlx = mlx_init();
 
 	vars.win = mlx_new_window(vars.mlx, SX, SY, "Why  sdyou not running???");
 
-	vars.buf = malloc(sizeof(t_data));
+	// INIT BUFFER IMAGE
+	vars.buf = calloc(1, sizeof(t_data));
 
 	vars.buf->img = mlx_new_image(vars.mlx, SX, SY);
 
@@ -117,10 +160,25 @@ int	main(void)
 								&vars.buf->line_length,
 								&vars.buf->endian);
 
+	// INIT STATE
+	vars.state = calloc(1, sizeof(t_state));
+	vars.state->xpos = SX / 2;
+	vars.state->keys = 0;
 
+	// 256 possible key positions. Give it the keycode, than see the key position
+	vars.state->key_bit_positions = (char [256]){
+		[KEY_LEFT]=1,
+		[KEY_RIGHT]=2,
+		[KEY_UP]=3,
+		[KEY_DOWN]=4,
+	};
+
+	// INIT HOOKS
 
 	// Create hook for keydown
-	mlx_key_hook(vars.win, handle_keydown, &vars);
+	/*mlx_key_hook(vars.win, handle_keydown, &vars);*/
+	mlx_hook(vars.win, ON_KEYDOWN, 0, handle_keydown, &vars);
+	mlx_hook(vars.win, ON_KEYUP, 0, handle_keyup, &vars);
 
 	// Create the update functions
 	mlx_loop_hook(vars.mlx, update, &vars);
