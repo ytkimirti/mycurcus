@@ -1,4 +1,4 @@
-NAME=libftprintf.a
+qqNAME=libftprintf.a
 LIBFT=libft/libft.a
 
 # REMOVE THIS WHEN PUSHING

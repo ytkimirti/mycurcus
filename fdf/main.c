@@ -6,7 +6,7 @@
 /*   By: ykimirti <42istanbul.com.tr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/14 17:06:29 by ykimirti          #+#    #+#             */
-/*   Updated: 2022/01/20 16:58:58 by ykimirti         ###   ########.tr       */
+/*   Updated: 2022/01/20 17:27:52 by ykimirti         ###   ########.tr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,7 +96,7 @@ int	update(t_vars *vars)
 
 	for (int i = 0; i < 64; i++)
 	{
-		if (CHK_BIT(state->keys, i))
+		if (state->keys[i])
 			printf("1");
 		else
 			printf("0");
@@ -108,11 +108,7 @@ int	update(t_vars *vars)
 
 int	handle_keydown(int keycode, t_vars *vars)
 {
-	char bitpos;
-
-	bitpos = vars->state->key_bit_positions[keycode];
-	/*printf("BITPOS of %d is %d\n", keycode, bitpos);*/
-	SET_BIT(vars->state->keys, bitpos);
+	vars->state->keys[keycode] = true;
 
 	if (keycode == KEY_ESCAPE)
 	{
@@ -132,11 +128,7 @@ int	handle_keydown(int keycode, t_vars *vars)
 
 int	handle_keyup(int keycode, t_vars *vars)
 {
-	char bitpos;
-
-	bitpos = vars->state->key_bit_positions[keycode];
-
-	CLR_BIT(vars->state->keys, bitpos);
+	vars->state->keys[keycode] = false;
 
 	return (0);
 }
@@ -163,15 +155,9 @@ int	main(void)
 	// INIT STATE
 	vars.state = calloc(1, sizeof(t_state));
 	vars.state->xpos = SX / 2;
-	vars.state->keys = 0;
 
 	// 256 possible key positions. Give it the keycode, than see the key position
-	vars.state->key_bit_positions = (char [256]){
-		[KEY_LEFT]=1,
-		[KEY_RIGHT]=2,
-		[KEY_UP]=3,
-		[KEY_DOWN]=4,
-	};
+	vars.state->keys = (char [256]){0};
 
 	// INIT HOOKS
 
