@@ -18,6 +18,8 @@ TEST_OBJS=$(TEST:.c=.o)
 TEST_LIB=./munit/munit.c
 TEST_LIB_OBJS=$(TEST_LIB:.c=.o)
 
+TEST_MAP=test.ber
+
 .PHONY: all clean fclean re bonus test makelib
 
 
@@ -25,6 +27,9 @@ all: $(NAME)
 
 run: all
 	./$(NAME)
+
+runmap: all
+	./$(NAME) $(TEST_MAP)
 
 makelib:
 	make -C $(LIBFT_DIR)
