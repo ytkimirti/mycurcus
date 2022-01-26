@@ -6,18 +6,20 @@
 /*   By: ykimirti <42istanbul.com.tr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/19 13:12:20 by ykimirti          #+#    #+#             */
-/*   Updated: 2022/01/20 19:11:57 by ykimirti         ###   ########.tr       */
+/*   Updated: 2022/01/26 18:30:40 by ykimirti         ###   ########.tr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FDF_H
+#ifndef SO_LONG_H
 
-# define FDF_H
+# define SO_LONG_H
 
 # include "mlx.h"
 # include <stdbool.h>
 # include <stdio.h>
 # include <stdlib.h>
+# include <string.h>
+# include <errno.h>
 
 // BITFIELD MACROS
 
@@ -65,6 +67,9 @@ typedef struct s_state {
 	int			yvel;
 	char		*keys;
 	char		*key_bit_positions;
+	char		**map;
+	int			map_width;
+	int			map_height;
 }				t_state;
 
 typedef struct s_vars {
@@ -73,6 +78,12 @@ typedef struct s_vars {
 	t_data	*buf;
 	t_state	*state;
 }				t_vars;
+
+int		error_msg(char *msg); /* return 0, because it's an error*/
+
+char	**read_map(char *filename, t_state *state);
+
+int		close_application(t_vars *vars);
 
 void	draw_square(t_data *data, int ox, int oy, int sx, int sy, int color);
 

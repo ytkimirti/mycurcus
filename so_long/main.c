@@ -6,7 +6,7 @@
 /*   By: ykimirti <42istanbul.com.tr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/14 17:06:29 by ykimirti          #+#    #+#             */
-/*   Updated: 2022/01/20 18:56:55 by ykimirti         ###   ########.tr       */
+/*   Updated: 2022/01/26 18:29:56 by ykimirti         ###   ########.tr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,8 +81,7 @@ int	handle_keydown(int keycode, t_vars *vars)
 
 	if (keycode == KEY_ESCAPE)
 	{
-		/*printf("%s\n", "Closing window...\n");*/
-		mlx_destroy_window(vars->mlx, vars->win);
+		close_application(vars);
 	}
 	else if (keycode == KEY_UP)
 	{
@@ -102,9 +101,29 @@ int	handle_keyup(int keycode, t_vars *vars)
 	return (0);
 }
 
-int	main(void)
+int	close_application(t_vars *vars)
+{
+	printf("%s", "\e[0;31m"); /* RED */
+	printf("%s\n", "Closing window...\n");
+	printf("%s", "\e[0m"); /* RESET */
+	mlx_destroy_window(vars->mlx, vars->win);
+	exit(0);
+	return (0);
+}
+
+int	main(int argc, char *argv[])
 {
 	t_vars	vars;
+	char	**map;
+
+	vars.state = calloc(1, sizeof(t_state));
+
+	if (argc != 2)
+		return (error_msg("usage: ./so_long <filename>"));
+	// parse file
+	map = read_map(argv[1], vars.state);
+	if (!map)
+		exit(0);
 
 	// INIT MLX
 	vars.mlx = mlx_init();
@@ -122,7 +141,6 @@ int	main(void)
 								&vars.buf->endian);
 
 	// INIT STATE
-	vars.state = calloc(1, sizeof(t_state));
 	vars.state->xpos = SX / 2;
 
 	// 256 possible key positions. Give it the keycode, than see the key position
@@ -134,6 +152,7 @@ int	main(void)
 	/*mlx_key_hook(vars.win, handle_keydown, &vars);*/
 	mlx_hook(vars.win, ON_KEYDOWN, 0, handle_keydown, &vars);
 	mlx_hook(vars.win, ON_KEYUP, 0, handle_keyup, &vars);
+	mlx_hook(vars.win, ON_DESTROY, 0, close_application, &vars);
 
 	// Create the update functions
 	mlx_loop_hook(vars.mlx, update, &vars);

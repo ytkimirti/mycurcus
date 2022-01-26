@@ -1,9 +1,9 @@
-NAME=fdf
+NAME=so_long
 LIBFT=libft/libft.a
 LIBFT_DIR=./libft
 
 # REMOVE THIS WHEN PUSHING
-SRCS=main.c utils.c player.c map.c
+SRCS=main.c utils.c player.c map.c error_handling.c
 OBJS=$(SRCS:.c=.o)
 
 BONUS=
@@ -23,23 +23,21 @@ TEST_MAP=test.ber
 .PHONY: all clean fclean re bonus test makelib
 
 
-all: $(NAME)
+all: makelib $(NAME)
 
 run: all
-	./$(NAME)
-
-runmap: all
 	./$(NAME) $(TEST_MAP)
 
+
 makelib:
-	make -C $(LIBFT_DIR)
+	make -C $(LIBFT_DIR) bonus
 
 debug: $(NAME)
 	echo ">------  DEBUG MODE --------<"
 	lldb ./$(NAME)
 
 $(NAME): $(OBJS)
-	$(CC) $(OBJS) -L./libmlx -lmlx -framework OpenGL -framework AppKit -o $(NAME)
+	$(CC) $(OBJS) -L./libmlx -L$(LIBFT_DIR) -lmlx -lft -framework OpenGL -framework AppKit -o $(NAME)
 
 %.o: %.c
 	$(CC) $(CFLAGS) -c $^ -o $@
