@@ -1,0 +1,3 @@
+[submodule "so_long/libft"]
+	path = so_long/libft
+	url = https://github.com/ytkimirti/libft
