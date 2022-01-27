@@ -6,7 +6,7 @@
 /*   By: ykimirti <42istanbul.com.tr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/19 13:12:20 by ykimirti          #+#    #+#             */
-/*   Updated: 2022/01/26 18:30:40 by ykimirti         ###   ########.tr       */
+/*   Updated: 2022/01/27 13:38:01 by ykimirti         ###   ########.tr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,8 @@
 # include <stdlib.h>
 # include <string.h>
 # include <errno.h>
+# include "libft/libft.h"
+
 
 // BITFIELD MACROS
 
@@ -72,11 +74,22 @@ typedef struct s_state {
 	int			map_height;
 }				t_state;
 
+typedef struct s_images
+{
+	void		*floor_images[10]; // 
+	void		*player_idle[6]; // knight_idle_anim_f0 - 5
+	void		*player_run[6]; // knight_idle_anim_f0 - 5
+	void		*door_images[14]; // door_anim_opening_f0.png - 13
+	void		*collectible_image;
+}	t_images;
+
 typedef struct s_vars {
-	void	*mlx;
-	void	*win;
-	t_data	*buf;
-	t_state	*state;
+	void		*mlx;
+	void		*win;
+	void		**bg_images;
+	t_data		*buf;
+	t_state		*state;
+	t_images	*images;
 }				t_vars;
 
 int		error_msg(char *msg); /* return 0, because it's an error*/

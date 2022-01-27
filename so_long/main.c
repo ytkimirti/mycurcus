@@ -6,7 +6,7 @@
 /*   By: ykimirti <42istanbul.com.tr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/14 17:06:29 by ykimirti          #+#    #+#             */
-/*   Updated: 2022/01/26 18:29:56 by ykimirti         ###   ########.tr       */
+/*   Updated: 2022/01/27 13:52:14 by ykimirti         ###   ########.tr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,6 @@
  * You can use other functions for bonus part
 */
 #include "so_long.h"
-#include "mlx.h"
-#include "libft/libft.h"
 
 void	draw_square(t_data *data, int ox, int oy, int sx, int sy, int color)
 {

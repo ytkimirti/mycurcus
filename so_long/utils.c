@@ -6,7 +6,7 @@
 /*   By: ykimirti <42istanbul.com.tr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/19 13:11:22 by ykimirti          #+#    #+#             */
-/*   Updated: 2022/01/20 18:55:27 by ykimirti         ###   ########.tr       */
+/*   Updated: 2022/01/27 11:44:58 by ykimirti         ###   ########.tr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	my_pixelput(t_data *data, int x, int y, int color)
 	char	*dst;
 	int		offset;
 
-	offset = (y * data->line_length + x * (data->bits_per_pixel / 8));
+	offset = ((y * data->line_length) + (x * (data->bits_per_pixel / 8)));
 
 	dst = data->addr + offset;
 
