@@ -3,15 +3,17 @@ LIBFT=libft/libft.a
 LIBFT_DIR=./libft
 
 # REMOVE THIS WHEN PUSHING
-SRCS=main.c utils.c player.c map.c error_handling.c load_images.c render.c
+SRCS=main.c utils.c player.c map.c error_handling.c load_images.c render.c \
+	 renderutils.c keys.c renderwrapper.c
 HEADERS=so_long.h
 OBJS=$(SRCS:.c=.o)
 
-BONUS=
-BONUS_OBJS=$(BONUS:.c=.o)
+BONUS=yusuf.c yusuf2.c
+#BONUS_OBJS=$(BONUS:.c=.o)
+BONUS_OBJS=yusuf.o yusuf2.o
 
 CC=gcc
-CFLAGS=-g -Wall -Wextra -Werror -Imlx
+CFLAGS=-g -Wall -Wextra -Werror -Imlx -Ilibft
 #CFLAGS=-Wall -Wextra -Werror -Imlx
 
 TEST=
@@ -58,8 +60,13 @@ sclean: clean
 re: fclean all
 sre: sclean all
 
+#SRC_ASSETS_DIR=assets_png
+#DST_ASSETS_DIR=assets
 
-test: makelib $(TEST_OBJS) $(OBJS) $(TEST_LIB_OBJS)
-	gcc -o test $^
-	./test
+#SRC_PNG=$(wildcard $(SRC_ASSETS_DIR)*.png)
 
+#DST_XPM=$(SRC_PNG:.png=.xpm)
+
+#MAGICK_FLAGS=-scale 400% -filter box
+
+#convert: $

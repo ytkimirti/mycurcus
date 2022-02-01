@@ -1,3 +1,14 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   render.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ykimirti <42istanbul.com.tr>               +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/02/01 18:05:18 by ykimirti          #+#    #+#             */
+/*   Updated: 2022/02/01 18:11:12 by ykimirti         ###   ########.tr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "so_long.h"
 
@@ -13,14 +24,6 @@
 			/*img->y);*/
 /*}*/
 
-
-void	put_image(t_vars *vars, t_image *img, int x, int y)
-{
-	mlx_put_image_to_window(vars->mlx, vars->win,
-			img->i,
-			x + vars->ox,
-			y + vars->oy);
-}
 // X Y position is given screen pos from the top left of img
 void	render_rectangular(t_vars *vars, t_image *img, int x, int y)
 {
@@ -29,32 +32,31 @@ void	render_rectangular(t_vars *vars, t_image *img, int x, int y)
 	y -= img->sy + ENTITY_BOTTOM_OFFSET;
 	render_point(vars, 40, 40);
 	put_image(vars,
-			img,
-			x,
-			y);
+		img,
+		x,
+		y);
 }
 
 // XY in screen pixels
 void	render_point(t_vars *vars, int sx, int sy)
 {
 	put_image(vars,
-			&vars->images.point,
-			sx + 8,
-			sy + 8);
+		&vars->images.point,
+		sx + 8,
+		sy + 8);
 }
 
 void	render_entities(t_vars *vars)
 {
-	t_image *img;
-	
+	t_image	*img;
+
 	if (vars->state.p_timer > 0)
 		img = &vars->images.player_run[vars->frame % 4];
 	else
 		img = &vars->images.player_idle[vars->frame % 4];
-	// Player
 	render_rectangular(vars, img,
-			vars->state.psx,
-			vars->state.psy);
+		vars->state.psx,
+		vars->state.psy);
 }
 
 void	render_tiles(t_vars *vars, int x, int y, char c)
@@ -71,7 +73,7 @@ void	render_tiles(t_vars *vars, int x, int y, char c)
 	if (c == '1')
 	{
 		put_image(vars,
-				&vars->images.wall_images[random % 5], tx, ty);
+			&vars->images.wall_images[random % 5], tx, ty);
 	}
 	else
 	{
@@ -88,45 +90,13 @@ void	render_props(t_vars *vars, int x, int y, char c)
 	ty = y * TILE_SIZE;
 	if (c == 'E')
 	{
-		// RENDER DOOR
 		mlx_put_image_to_window(vars->mlx, vars->win,
-				vars->images.ladder_image.i, tx, ty);
+			vars->images.ladder_image.i, tx, ty);
 	}
 	else if (c == 'C')
 	{
-		// Render flask
 		render_rectangular(vars, &vars->images.collectible_image,
-				x * TILE_SIZE,
-				y * TILE_SIZE);
-		// Render coin
-		/*mlx_put_image_to_window(vars->mlx, vars->win,*/
-				/*vars->images.coin_images[vars->frame % 4].i, tx, ty);*/
+			x * TILE_SIZE,
+			y * TILE_SIZE);
 	}
-}
-
-void	render_wrapper(t_vars *vars,
-		void (*f)(t_vars *vars, int x, int y, char c))
-{
-	int		x;
-	int		y;
-	/*printf("h: %d w: %d\n", vars->state.map_height, vars->state.map_width);*/
-
-	y = 0;
-	while (y < vars->state.map_height)
-	{
-		x = 0;
-		while (x < vars->state.map_width)
-		{
-			f(vars, x, y, vars->state.map[y][x]);
-			x++;
-		}
-		y++;
-	}
-}
-
-void	render(t_vars *vars)
-{
-	render_wrapper(vars, render_tiles);
-	render_wrapper(vars, render_props);
-	render_entities(vars);
 }

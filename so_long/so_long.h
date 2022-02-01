@@ -6,7 +6,7 @@
 /*   By: ykimirti <42istanbul.com.tr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/19 13:12:20 by ykimirti          #+#    #+#             */
-/*   Updated: 2022/02/01 17:38:27 by ykimirti         ###   ########.tr       */
+/*   Updated: 2022/02/01 18:57:41 by ykimirti         ###   ########.tr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,27 +14,25 @@
 
 # define SO_LONG_H
 
-# include "mlx.h"
+# include "colors.h"
+
+# include "libmlx/mlx.h"
+# include "libft/libft.h"
 # include <stdbool.h>
 # include <stdio.h>
 # include <stdlib.h>
 # include <string.h>
 # include <errno.h>
-# include "libft/libft.h"
-
 
 // BITFIELD MACROS
-
 # define SET_BIT(BF, N) BF |= ((uint64_t)0x1 << N)
 # define CLR_BIT(BF, N) BF &= ~((uint64_t)0x1 << N)
 # define CHK_BIT(BF, N) ((BF >> N) & 0x1)
 
-/*# define SX 400*/
-/*# define SY 200*/
 // Original scale was 16
 // Treat one pixel as 4
-# define LERP_SPEED 0.2
 # define TILE_SIZE 64
+# define LERP_SPEED 0.2
 # define ENTITY_BOTTOM_OFFSET 12
 
 # define FRAME_TIME 6
@@ -89,7 +87,7 @@ typedef struct s_image
 	void		*i;
 	int			sx;
 	int			sy;
-} t_image;
+}	t_image;
 
 typedef struct s_images
 {
@@ -97,8 +95,8 @@ typedef struct s_images
 	t_image		wall_images[5];
 	t_image		coin_images[4];
 	t_image		player_idle[4];
-	t_image		player_run[4];
 	t_image		ladder_image;
+	t_image		player_run[4];
 	t_image		collectible_image;
 	t_image		point;
 	bool		is_player_running;
@@ -123,8 +121,6 @@ int		error_msg(char *msg); /* return 0, because it's an error*/
 char	**read_map(char *filename, t_state *state);
 
 int		close_application(t_vars *vars);
-
-void	draw_square(t_data *data, int ox, int oy, int sx, int sy, int color);
 
 void	my_pixelput(t_data *data, int x, int y, int color);
 
@@ -154,4 +150,15 @@ char	find_char(t_vars *vars, int x, int y);
 
 float	lerp(float a, float b, float t);
 
+int		handle_keydown(int keycode, t_vars *vars);
+
+int		handle_keyup(int keycode, t_vars *vars);
+
+void	render_tiles(t_vars *vars, int x, int y, char c);
+
+void	render_props(t_vars *vars, int x, int y, char c);
+
+void	render_entities(t_vars *vars);
+
+void	put_image(t_vars *vars, t_image *img, int x, int y);
 #endif
