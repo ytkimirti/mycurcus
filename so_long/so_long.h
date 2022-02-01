@@ -6,7 +6,7 @@
 /*   By: ykimirti <42istanbul.com.tr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/19 13:12:20 by ykimirti          #+#    #+#             */
-/*   Updated: 2022/02/01 17:02:35 by ykimirti         ###   ########.tr       */
+/*   Updated: 2022/02/01 17:38:27 by ykimirti         ###   ########.tr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,11 +33,12 @@
 /*# define SY 200*/
 // Original scale was 16
 // Treat one pixel as 4
-# define LERP_SPEED 0.1
+# define LERP_SPEED 0.2
 # define TILE_SIZE 64
 # define ENTITY_BOTTOM_OFFSET 12
 
 # define FRAME_TIME 6
+# define PLAYER_RUN_FRAME_TIME 23
 
 enum {
 	ON_KEYDOWN = 2,
@@ -55,6 +56,10 @@ enum {
 	KEY_RIGHT	=124,
 	KEY_DOWN	=125,
 	KEY_UP		=126,
+	KEY_W		=13,
+	KEY_A		=0,
+	KEY_S		=1,
+	KEY_D		=2,
 };
 
 typedef struct s_data
@@ -71,6 +76,8 @@ typedef struct s_state {
 	int			py;
 	int			psx;
 	int			psy;
+	bool		p_facing;
+	int			p_timer;
 	char		*keys;
 	char		**map;
 	int			map_width;
@@ -123,7 +130,7 @@ void	my_pixelput(t_data *data, int x, int y, int color);
 
 void	clear_line(void);
 
-void	update_player(t_state *state);
+void	update_player(t_vars *vars);
 
 void	player_jump(t_state *state);
 
@@ -144,5 +151,7 @@ void	move_player_by(t_vars *vars, int x, int y);
 bool	in_map(t_vars *vars, int x, int y);
 
 char	find_char(t_vars *vars, int x, int y);
+
+float	lerp(float a, float b, float t);
 
 #endif

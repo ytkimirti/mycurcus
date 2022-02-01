@@ -21,11 +21,10 @@ void	put_image(t_vars *vars, t_image *img, int x, int y)
 			x + vars->ox,
 			y + vars->oy);
 }
-// X Y position is given from the top left cell index like 2 3
+// X Y position is given screen pos from the top left of img
 void	render_rectangular(t_vars *vars, t_image *img, int x, int y)
 {
-	x = x * TILE_SIZE;
-	y = (y + 1) * TILE_SIZE;
+	y += TILE_SIZE;
 	x += (TILE_SIZE - img->sx) / 2;
 	y -= img->sy + ENTITY_BOTTOM_OFFSET;
 	render_point(vars, 40, 40);
@@ -46,10 +45,16 @@ void	render_point(t_vars *vars, int sx, int sy)
 
 void	render_entities(t_vars *vars)
 {
+	t_image *img;
+	
+	if (vars->state.p_timer > 0)
+		img = &vars->images.player_run[vars->frame % 4];
+	else
+		img = &vars->images.player_idle[vars->frame % 4];
 	// Player
-	render_rectangular(vars, &vars->images.player_run[vars->frame % 4],
-			vars->state.px,
-			vars->state.py);
+	render_rectangular(vars, img,
+			vars->state.psx,
+			vars->state.psy);
 }
 
 void	render_tiles(t_vars *vars, int x, int y, char c)
@@ -90,7 +95,9 @@ void	render_props(t_vars *vars, int x, int y, char c)
 	else if (c == 'C')
 	{
 		// Render flask
-		render_rectangular(vars, &vars->images.collectible_image, x, y);
+		render_rectangular(vars, &vars->images.collectible_image,
+				x * TILE_SIZE,
+				y * TILE_SIZE);
 		// Render coin
 		/*mlx_put_image_to_window(vars->mlx, vars->win,*/
 				/*vars->images.coin_images[vars->frame % 4].i, tx, ty);*/

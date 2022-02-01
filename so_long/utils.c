@@ -6,12 +6,17 @@
 /*   By: ykimirti <42istanbul.com.tr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/19 13:11:22 by ykimirti          #+#    #+#             */
-/*   Updated: 2022/02/01 17:05:13 by ykimirti         ###   ########.tr       */
+/*   Updated: 2022/02/01 17:10:44 by ykimirti         ###   ########.tr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 
 #include "so_long.h"
+
+float	lerp(float a, float b, float t)
+{
+	return (a + (b - a) * t);
+}
 
 char	find_char(t_vars *vars, int x, int y)
 {

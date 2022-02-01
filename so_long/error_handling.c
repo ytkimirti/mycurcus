@@ -6,7 +6,7 @@
 /*   By: ykimirti <42istanbul.com.tr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/26 18:22:38 by ykimirti          #+#    #+#             */
-/*   Updated: 2022/02/01 14:41:11 by ykimirti         ###   ########.tr       */
+/*   Updated: 2022/02/01 17:48:17 by ykimirti         ###   ########.tr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,10 @@
 
 int	error_msg(char *msg)
 {
-	printf("%s", "\e[0;31m"); /* RED */
-	printf("ERR: %s\n", msg);
-	printf("%s", "\e[0m"); /* RESET */
+	ft_printf("Error\n");
+	ft_printf("%s", "\e[0;31m"); /* RED */
+	ft_printf("ERR: %s\n", msg);
+	ft_printf("%s", "\e[0m"); /* RESET */
 	return (0);
 }
 

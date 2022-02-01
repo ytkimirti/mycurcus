@@ -6,7 +6,7 @@
 /*   By: ykimirti <42istanbul.com.tr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/14 17:06:29 by ykimirti          #+#    #+#             */
-/*   Updated: 2022/02/01 16:43:08 by ykimirti         ###   ########.tr       */
+/*   Updated: 2022/02/01 17:53:28 by ykimirti         ###   ########.tr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,8 @@ int	update(t_vars *vars)
 	vars->time++;
 	vars->frame = vars->time / FRAME_TIME;
 
+	update_player(vars);
+
 	draw_square(&vars->buf, vars->frame, 0, 40, 40, 0x00FFFFFF);
 	mlx_put_image_to_window(vars->mlx, vars->win, vars->buf.img, 0, 0);
 
@@ -54,18 +56,15 @@ int	handle_keydown(int keycode, t_vars *vars)
 	vars->state.keys[keycode] = true;
 
 	if (keycode == KEY_ESCAPE)
-	{
 		close_application(vars);
-	}
-	else if (keycode == KEY_LEFT)
+	else if (keycode == KEY_LEFT || keycode == KEY_A)
 		move_player_by(vars, -1, 0);
-	else if (keycode == KEY_RIGHT)
+	else if (keycode == KEY_RIGHT || keycode == KEY_D)
 		move_player_by(vars, 1, 0);
-	else if (keycode == KEY_UP)
+	else if (keycode == KEY_UP || keycode == KEY_W)
 		move_player_by(vars, 0, -1);
-	else if (keycode == KEY_DOWN)
+	else if (keycode == KEY_DOWN || keycode == KEY_S)
 		move_player_by(vars, 0, 1);
-
 	return (0);
 }
 
@@ -92,18 +91,15 @@ int	main(int argc, char *argv[])
 
 	vars = (t_vars){0};
 
-	reset_vars(&vars);
 	// PARSE MAP
 	if (argc != 2)
 		return (error_msg("usage: ./so_long <filename>"));
 	vars.state.map = read_map(argv[1], &vars.state);
 	if (!vars.state.map)
 		exit(0);
-	ft_printf("Tile size: %d\n", TILE_SIZE);
 	vars.sx = vars.state.map_width * TILE_SIZE;
 	vars.sy = vars.state.map_height * TILE_SIZE;
 
-	vars.time = 0;
 	vars.images.is_player_running = false;
 
 	// INIT MLX
