@@ -6,7 +6,7 @@
 /*   By: ykimirti <42istanbul.com.tr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/14 17:06:29 by ykimirti          #+#    #+#             */
-/*   Updated: 2022/02/01 15:55:44 by ykimirti         ###   ########.tr       */
+/*   Updated: 2022/02/01 16:43:08 by ykimirti         ###   ########.tr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,9 +57,14 @@ int	handle_keydown(int keycode, t_vars *vars)
 	{
 		close_application(vars);
 	}
-	else {
-		/*printf("Keycode: %d p: %p\n", keycode, vars);*/
-	}
+	else if (keycode == KEY_LEFT)
+		move_player_by(vars, -1, 0);
+	else if (keycode == KEY_RIGHT)
+		move_player_by(vars, 1, 0);
+	else if (keycode == KEY_UP)
+		move_player_by(vars, 0, -1);
+	else if (keycode == KEY_DOWN)
+		move_player_by(vars, 0, 1);
 
 	return (0);
 }
@@ -84,6 +89,8 @@ int	close_application(t_vars *vars)
 int	main(int argc, char *argv[])
 {
 	t_vars	vars;
+
+	vars = (t_vars){0};
 
 	reset_vars(&vars);
 	// PARSE MAP

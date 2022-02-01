@@ -6,12 +6,29 @@
 /*   By: ykimirti <42istanbul.com.tr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/19 13:11:22 by ykimirti          #+#    #+#             */
-/*   Updated: 2022/02/01 15:50:26 by ykimirti         ###   ########.tr       */
+/*   Updated: 2022/02/01 17:05:13 by ykimirti         ###   ########.tr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 
 #include "so_long.h"
+
+char	find_char(t_vars *vars, int x, int y)
+{
+	if (!in_map(vars, x, y))
+		return ('1');
+	return (vars->state.map[y][x]);
+}
+
+bool	in_map(t_vars *vars, int x, int y)
+{
+	return (
+			x >= 0 &&
+			y >= 0 &&
+			x < vars->state.map_width &&
+			y < vars->state.map_height
+		   );
+}
 
 void	my_pixelput(t_data *data, int x, int y, int color)
 {

@@ -6,7 +6,7 @@
 /*   By: ykimirti <42istanbul.com.tr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/19 13:12:20 by ykimirti          #+#    #+#             */
-/*   Updated: 2022/02/01 15:52:11 by ykimirti         ###   ########.tr       */
+/*   Updated: 2022/02/01 17:02:35 by ykimirti         ###   ########.tr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,8 @@ typedef struct s_data
 typedef struct s_state {
 	int			px;
 	int			py;
+	int			psx;
+	int			psy;
 	char		*keys;
 	char		**map;
 	int			map_width;
@@ -80,8 +82,6 @@ typedef struct s_image
 	void		*i;
 	int			sx;
 	int			sy;
-	int			x;
-	int			y;
 } t_image;
 
 typedef struct s_images
@@ -102,6 +102,8 @@ typedef struct s_vars {
 	void		*win;
 	int			sx;
 	int			sy;
+	int			ox;
+	int			oy;
 	int			time;
 	int			frame;
 	t_data		buf;
@@ -134,5 +136,13 @@ void	print_map(char **map);
 void	reset_vars(t_vars *vars);
 
 void	render_point(t_vars *vars, int sx, int sy);
+
+void	move_player_to(t_vars *vars, int x, int y);
+
+void	move_player_by(t_vars *vars, int x, int y);
+
+bool	in_map(t_vars *vars, int x, int y);
+
+char	find_char(t_vars *vars, int x, int y);
 
 #endif

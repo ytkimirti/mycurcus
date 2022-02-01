@@ -6,7 +6,7 @@
 /*   By: ykimirti <42istanbul.com.tr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/14 17:06:29 by ykimirti          #+#    #+#             */
-/*   Updated: 2022/01/20 17:27:52 by ykimirti         ###   ########.tr       */
+/*   Updated: 2022/02/01 16:42:12 by ykimirti         ###   ########.tr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,6 +93,7 @@ int	update(t_vars *vars)
 	mlx_put_image_to_window(vars->mlx, vars->win, vars->buf->img, 0, 0);
 
 	clear_line();
+	state->px;
 
 	for (int i = 0; i < 64; i++)
 	{
@@ -108,7 +109,7 @@ int	update(t_vars *vars)
 
 int	handle_keydown(int keycode, t_vars *vars)
 {
-	vars->state->keys[keycode] = true;
+	vars->state.keys[keycode] = true;
 
 	if (keycode == KEY_ESCAPE)
 	{
@@ -128,7 +129,7 @@ int	handle_keydown(int keycode, t_vars *vars)
 
 int	handle_keyup(int keycode, t_vars *vars)
 {
-	vars->state->keys[keycode] = false;
+	vars->state.keys[keycode] = false;
 
 	return (0);
 }
@@ -136,7 +137,7 @@ int	handle_keyup(int keycode, t_vars *vars)
 int	main(void)
 {
 	t_vars	vars;
-
+	
 	// INIT MLX
 	vars.mlx = mlx_init();
 
@@ -154,10 +155,10 @@ int	main(void)
 
 	// INIT STATE
 	vars.state = calloc(1, sizeof(t_state));
-	vars.state->xpos = SX / 2;
+	vars.state.xpos = SX / 2;
 
 	// 256 possible key positions. Give it the keycode, than see the key position
-	vars.state->keys = (char [256]){0};
+	vars.state.keys = (char [256]){0};
 
 	// INIT HOOKS
 

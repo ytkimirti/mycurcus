@@ -6,32 +6,37 @@
 /*   By: ykimirti <42istanbul.com.tr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/20 18:15:08 by ykimirti          #+#    #+#             */
-/*   Updated: 2022/01/27 19:46:36 by ykimirti         ###   ########.tr       */
+/*   Updated: 2022/02/01 16:37:46 by ykimirti         ###   ########.tr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 
 #include "so_long.h"
 
-/*void	player_jump(t_state *state)*/
-/*{*/
-	/*state->yvel = 10;*/
-/*}*/
+void	move_player_to(t_vars *vars, int x, int y)
+{
+	ft_printf("Moving player to (%d, %d)\n", x, y);
+	vars->state.px = x;
+	vars->state.py = y;
+}
 
-/*void	update_player(t_state *state)*/
-/*{*/
-	/*// Update velocities*/
-	/*state->yvel -= GRAVITY;*/
+void	move_player_by(t_vars *vars, int x, int y)
+{
+	char	c;
+	int		tx;
+	int		ty;
 
+	tx = vars->state.px + x;
+	ty = vars->state.py + y;
 
-	/*// Update position*/
-	/*state->ypos -= state->yvel;*/
-	/*state->xpos += state->xvel;*/
+	c = find_char(vars, tx, ty);
 
-	/*// Update collisions*/
-	/*if (state->ypos >= SY - 20)*/
-	/*{*/
-		/*state->yvel = 0;*/
-		/*state->ypos = SY - 20;*/
-	/*}*/
-/*}*/
+	if (c == '1')
+		return ;
+	if (c == 'C')
+	{
+		// Collect the collectible
+		vars->state.map[ty][tx] = '0';
+	}
+	move_player_to(vars, vars->state.px + x, vars->state.py + y);
+}
