@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   printf.h                                           :+:      :+:    :+:   */
+/*   ft_printf.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ykimirti <42istanbul.com.tr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/13 11:26:16 by ykimirti          #+#    #+#             */
-/*   Updated: 2022/01/13 12:20:08 by ykimirti         ###   ########.tr       */
+/*   Updated: 2022/01/28 10:36:10 by ykimirti         ###   ########.tr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PRINTF_H
+#ifndef FT_PRINTF_H
 
-# define PRINTF_H
+# define FT_PRINTF_H
 
 int	ft_printf(const char *key, ...);
 

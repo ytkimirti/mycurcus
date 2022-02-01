@@ -6,7 +6,7 @@
 /*   By: ykimirti <42istanbul.com.tr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/14 17:06:29 by ykimirti          #+#    #+#             */
-/*   Updated: 2022/01/27 13:52:14 by ykimirti         ###   ########.tr       */
+/*   Updated: 2022/02/01 15:55:44 by ykimirti         ###   ########.tr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@
  * You can use other functions for bonus part
 */
 #include "so_long.h"
+#include <sys/time.h>
 
 void	draw_square(t_data *data, int ox, int oy, int sx, int sy, int color)
 {
@@ -35,55 +36,26 @@ void	draw_square(t_data *data, int ox, int oy, int sx, int sy, int color)
 	}
 }
 
-void	draw_player(t_vars *vars, t_state *state)
-{
-	draw_square(vars->buf, state->xpos - 20, state->ypos - 20, 40, 40, 0x00FF0000);
-}
-
 int	update(t_vars *vars)
 {
-	t_state	*state;
+	vars->time++;
+	vars->frame = vars->time / FRAME_TIME;
 
-	// Init
-	state = vars->state;
+	draw_square(&vars->buf, vars->frame, 0, 40, 40, 0x00FFFFFF);
+	mlx_put_image_to_window(vars->mlx, vars->win, vars->buf.img, 0, 0);
 
-	// Draw bg
-	draw_square(vars->buf, 0, 0, SX, SY, 0x00FFFFFF);
-
-
-	update_player(state);
-
-	// Draw
-	draw_player(vars, state);
-
-	// Render
-	mlx_put_image_to_window(vars->mlx, vars->win, vars->buf->img, 0, 0);
-
-	clear_line();
-
-	for (int i = 0; i < 64; i++)
-	{
-		if (state->keys[i])
-			printf("1");
-		else
-			printf("0");
-	}
-	printf("\n");
+	render(vars);
 
 	return (0);
 }
 
 int	handle_keydown(int keycode, t_vars *vars)
 {
-	vars->state->keys[keycode] = true;
+	vars->state.keys[keycode] = true;
 
 	if (keycode == KEY_ESCAPE)
 	{
 		close_application(vars);
-	}
-	else if (keycode == KEY_UP)
-	{
-		player_jump(vars->state);
 	}
 	else {
 		/*printf("Keycode: %d p: %p\n", keycode, vars);*/
@@ -94,7 +66,7 @@ int	handle_keydown(int keycode, t_vars *vars)
 
 int	handle_keyup(int keycode, t_vars *vars)
 {
-	vars->state->keys[keycode] = false;
+	vars->state.keys[keycode] = false;
 
 	return (0);
 }
@@ -112,42 +84,44 @@ int	close_application(t_vars *vars)
 int	main(int argc, char *argv[])
 {
 	t_vars	vars;
-	char	**map;
 
-	vars.state = calloc(1, sizeof(t_state));
-
+	reset_vars(&vars);
+	// PARSE MAP
 	if (argc != 2)
 		return (error_msg("usage: ./so_long <filename>"));
-	// parse file
-	map = read_map(argv[1], vars.state);
-	if (!map)
+	vars.state.map = read_map(argv[1], &vars.state);
+	if (!vars.state.map)
 		exit(0);
+	ft_printf("Tile size: %d\n", TILE_SIZE);
+	vars.sx = vars.state.map_width * TILE_SIZE;
+	vars.sy = vars.state.map_height * TILE_SIZE;
+
+	vars.time = 0;
+	vars.images.is_player_running = false;
 
 	// INIT MLX
 	vars.mlx = mlx_init();
 
-	vars.win = mlx_new_window(vars.mlx, SX, SY, "Why  sdyou not running???");
+	vars.win = mlx_new_window(vars.mlx, vars.sx, vars.sy, "Why  sdyou not running???");
+
+	// LOAD IMAGES
+	if (!load_images(&vars))
+		exit(0);
 
 	// INIT BUFFER IMAGE
-	vars.buf = calloc(1, sizeof(t_data));
+	vars.buf.img = mlx_new_image(vars.mlx, vars.sx, vars.sy);
 
-	vars.buf->img = mlx_new_image(vars.mlx, SX, SY);
-
-	vars.buf->addr = mlx_get_data_addr(vars.buf->img,
-								&vars.buf->bits_per_pixel,
-								&vars.buf->line_length,
-								&vars.buf->endian);
-
-	// INIT STATE
-	vars.state->xpos = SX / 2;
+	vars.buf.addr = mlx_get_data_addr(vars.buf.img,
+								&vars.buf.bits_per_pixel,
+								&vars.buf.line_length,
+								&vars.buf.endian);
 
 	// 256 possible key positions. Give it the keycode, than see the key position
-	vars.state->keys = (char [256]){0};
+	vars.state.keys = (char [256]){0};
 
 	// INIT HOOKS
 
 	// Create hook for keydown
-	/*mlx_key_hook(vars.win, handle_keydown, &vars);*/
 	mlx_hook(vars.win, ON_KEYDOWN, 0, handle_keydown, &vars);
 	mlx_hook(vars.win, ON_KEYUP, 0, handle_keyup, &vars);
 	mlx_hook(vars.win, ON_DESTROY, 0, close_application, &vars);

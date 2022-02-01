@@ -1,4 +1,4 @@
-qqNAME=libftprintf.a
+NAME=libftprintf.a
 LIBFT=libft/libft.a
 
 # REMOVE THIS WHEN PUSHING
@@ -11,12 +11,7 @@ BONUS_OBJS=$(BONUS:.c=.o)
 CC=gcc
 CFLAGS=-Wall -Wextra -Werror
 
-TEST=test.c
-TEST_OBJS=$(TEST:.c=.o)
-TEST_LIB=./munit/munit.c
-TEST_LIB_OBJS=$(TEST_LIB:.c=.o)
-
-.PHONY: all clean fclean re bonus makelib test
+.PHONY: all clean fclean re bonus makelib
 
 all: $(NAME)
 
@@ -29,17 +24,9 @@ $(NAME): $(OBJS)
 	$(CC) $(CFLAGS) -c $^
 
 clean:
-	rm -f $(OBJS) $(BONUS_OBJS) $(TEST_OBJS)
+	rm -f $(OBJS) $(BONUS_OBJS)
 
 fclean: clean
 	rm -f $(NAME)
 
 re: fclean all
-
-#bonus: $(OBJS) $(BONUS_OBJS)
-	#$(CC) $(CFLAGS) -o $(NAME) $(OBJS) $(BONUS_OBJS)
-
-test: makelib $(TEST_OBJS) $(OBJS) $(TEST_LIB_OBJS)
-	gcc -o test $^
-	./test
-

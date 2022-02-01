@@ -6,13 +6,12 @@
 /*   By: ykimirti <42istanbul.com.tr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/19 13:11:22 by ykimirti          #+#    #+#             */
-/*   Updated: 2022/01/27 11:44:58 by ykimirti         ###   ########.tr       */
+/*   Updated: 2022/02/01 15:50:26 by ykimirti         ###   ########.tr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 
 #include "so_long.h"
-
 
 void	my_pixelput(t_data *data, int x, int y, int color)
 {

@@ -6,7 +6,7 @@
 /*   By: ykimirti <42istanbul.com.tr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/12 15:10:08 by ykimirti          #+#    #+#             */
-/*   Updated: 2022/01/13 12:21:06 by ykimirti         ###   ########.tr       */
+/*   Updated: 2022/01/28 10:19:44 by ykimirti         ###   ########.tr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "libft/libft.h"
-#include "printf.h"
+#include "ft_printf.h"
 
 int	print_arg(char c, va_list ap)
 {

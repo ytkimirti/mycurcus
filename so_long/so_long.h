@@ -6,7 +6,7 @@
 /*   By: ykimirti <42istanbul.com.tr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/19 13:12:20 by ykimirti          #+#    #+#             */
-/*   Updated: 2022/01/27 13:38:01 by ykimirti         ###   ########.tr       */
+/*   Updated: 2022/02/01 15:52:11 by ykimirti         ###   ########.tr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,10 +29,15 @@
 # define CLR_BIT(BF, N) BF &= ~((uint64_t)0x1 << N)
 # define CHK_BIT(BF, N) ((BF >> N) & 0x1)
 
-# define SX 400
-# define SY 200
+/*# define SX 400*/
+/*# define SY 200*/
+// Original scale was 16
+// Treat one pixel as 4
+# define LERP_SPEED 0.1
+# define TILE_SIZE 64
+# define ENTITY_BOTTOM_OFFSET 12
 
-# define GRAVITY 1
+# define FRAME_TIME 6
 
 enum {
 	ON_KEYDOWN = 2,
@@ -59,37 +64,49 @@ typedef struct s_data
 	int		bits_per_pixel;
 	int		line_length;
 	int		endian;
-	void	*state;
 }	t_data;
 
 typedef struct s_state {
-	int			xpos;
-	int			ypos;
-	int			xvel;
-	int			yvel;
+	int			px;
+	int			py;
 	char		*keys;
-	char		*key_bit_positions;
 	char		**map;
 	int			map_width;
 	int			map_height;
 }				t_state;
 
+typedef struct s_image
+{
+	void		*i;
+	int			sx;
+	int			sy;
+	int			x;
+	int			y;
+} t_image;
+
 typedef struct s_images
 {
-	void		*floor_images[10]; // 
-	void		*player_idle[6]; // knight_idle_anim_f0 - 5
-	void		*player_run[6]; // knight_idle_anim_f0 - 5
-	void		*door_images[14]; // door_anim_opening_f0.png - 13
-	void		*collectible_image;
+	t_image		floor_images[5];
+	t_image		wall_images[5];
+	t_image		coin_images[4];
+	t_image		player_idle[4];
+	t_image		player_run[4];
+	t_image		ladder_image;
+	t_image		collectible_image;
+	t_image		point;
+	bool		is_player_running;
 }	t_images;
 
 typedef struct s_vars {
 	void		*mlx;
 	void		*win;
-	void		**bg_images;
-	t_data		*buf;
-	t_state		*state;
-	t_images	*images;
+	int			sx;
+	int			sy;
+	int			time;
+	int			frame;
+	t_data		buf;
+	t_state		state;
+	t_images	images;
 }				t_vars;
 
 int		error_msg(char *msg); /* return 0, because it's an error*/
@@ -107,5 +124,15 @@ void	clear_line(void);
 void	update_player(t_state *state);
 
 void	player_jump(t_state *state);
+
+int		load_images(t_vars *vars);
+
+void	render(t_vars *vars);
+
+void	print_map(char **map);
+
+void	reset_vars(t_vars *vars);
+
+void	render_point(t_vars *vars, int sx, int sy);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: ykimirti <42istanbul.com.tr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/26 16:16:02 by ykimirti          #+#    #+#             */
-/*   Updated: 2022/01/26 18:38:44 by ykimirti         ###   ########.tr       */
+/*   Updated: 2022/01/28 14:51:33 by ykimirti         ###   ########.tr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,11 @@ bool	confirm_map(char **map, t_state *state)
 			if (map[row][col] == 'E')
 				SET_BIT(seen_objects, 1);
 			if (map[row][col] == 'P')
+			{
+				state->px = col;
+				state->py = row;
 				SET_BIT(seen_objects, 2);
+			}
 			col++;
 		}
 		row++;
@@ -80,6 +84,18 @@ bool	confirm_map(char **map, t_state *state)
 	printf("Map correct!\n");
 	printf("%s", "\e[0m"); /* RESET */
 	return (true);
+}
+
+void	print_map(char **map)
+{
+	for (int i = 0; i < 5; i++)
+	{
+		for (int j = 0; j < 13; j++)
+		{
+			printf("%c", map[i][j]);
+		}
+		printf("\n");
+	}
 }
 
 char	**read_map(char *filename, t_state *state)
@@ -112,9 +128,11 @@ char	**read_map(char *filename, t_state *state)
 			return (NULL);
 		i++;
 	}
+	close(fd);
 	state->map_height = i;
 	if (!confirm_map(map, state))
 	{
+		error_msg("Map not correct!");
 		free(map);
 		return (NULL);
 	}

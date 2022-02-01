@@ -3,14 +3,15 @@ LIBFT=libft/libft.a
 LIBFT_DIR=./libft
 
 # REMOVE THIS WHEN PUSHING
-SRCS=main.c utils.c player.c map.c error_handling.c
+SRCS=main.c utils.c player.c map.c error_handling.c load_images.c render.c
+HEADERS=so_long.h
 OBJS=$(SRCS:.c=.o)
 
 BONUS=
 BONUS_OBJS=$(BONUS:.c=.o)
 
 CC=gcc
-CFLAGS=-g -Wall -Wextra -Imlx
+CFLAGS=-g -Wall -Wextra -Werror -Imlx
 #CFLAGS=-Wall -Wextra -Werror -Imlx
 
 TEST=
@@ -20,7 +21,7 @@ TEST_LIB_OBJS=$(TEST_LIB:.c=.o)
 
 TEST_MAP=test.ber
 
-.PHONY: all clean fclean re bonus test makelib
+.PHONY: all clean fclean sclean sre re bonus test makelib
 
 
 all: makelib $(NAME)
@@ -28,6 +29,8 @@ all: makelib $(NAME)
 run: all
 	./$(NAME) $(TEST_MAP)
 
+srun: sre
+	./$(NAME) $(TEST_MAP)
 
 makelib:
 	make -C $(LIBFT_DIR) bonus
@@ -36,7 +39,7 @@ debug: $(NAME)
 	echo ">------  DEBUG MODE --------<"
 	lldb ./$(NAME)
 
-$(NAME): $(OBJS)
+$(NAME): $(OBJS) $(HEADERS)
 	$(CC) $(OBJS) -L./libmlx -L$(LIBFT_DIR) -lmlx -lft -framework OpenGL -framework AppKit -o $(NAME)
 
 %.o: %.c
@@ -49,7 +52,11 @@ fclean: clean
 	make -C $(LIBFT_DIR) fclean
 	rm -f $(NAME)
 
+sclean: clean
+	rm -f $(NAME)
+
 re: fclean all
+sre: sclean all
 
 
 test: makelib $(TEST_OBJS) $(OBJS) $(TEST_LIB_OBJS)
