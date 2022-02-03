@@ -2,31 +2,29 @@ NAME=so_long
 LIBFT=libft/libft.a
 LIBFT_DIR=./libft
 
-# REMOVE THIS WHEN PUSHING
 SRCS=main.c utils.c player.c map.c error_handling.c load_images.c render.c \
-	 renderutils.c keys.c renderwrapper.c
+	 renderutils.c keys.c renderwrapper.c binaryutils.c
 HEADERS=so_long.h
 OBJS=$(SRCS:.c=.o)
 
-BONUS=yusuf.c yusuf2.c
-#BONUS_OBJS=$(BONUS:.c=.o)
-BONUS_OBJS=yusuf.o yusuf2.o
-
 CC=gcc
 CFLAGS=-g -Wall -Wextra -Werror -Imlx -Ilibft
-#CFLAGS=-Wall -Wextra -Werror -Imlx
-
-TEST=
-TEST_OBJS=$(TEST:.c=.o)
-TEST_LIB=./munit/munit.c
-TEST_LIB_OBJS=$(TEST_LIB:.c=.o)
 
 TEST_MAP=test.ber
 
+# ----------  IMAGE CONVERSION -----------
+SRC_ASSETS_DIR := assets_png
+DST_ASSETS_DIR := assets
+
+SRC_ASSETS := $(wildcard $(SRC_ASSETS_DIR)/*.png)
+
+DST_ASSETS := $(SRC_ASSETS:$(SRC_ASSETS_DIR)/%.png=$(DST_ASSETS_DIR)/%.xpm)
+
+MAGICK_FLAGS=-scale 400% -filter box
+
 .PHONY: all clean fclean sclean sre re bonus test makelib
 
-
-all: makelib $(NAME)
+all: makelib $(DST_ASSETS) $(NAME)
 
 run: all
 	./$(NAME) $(TEST_MAP)
@@ -60,13 +58,7 @@ sclean: clean
 re: fclean all
 sre: sclean all
 
-#SRC_ASSETS_DIR=assets_png
-#DST_ASSETS_DIR=assets
 
-#SRC_PNG=$(wildcard $(SRC_ASSETS_DIR)*.png)
-
-#DST_XPM=$(SRC_PNG:.png=.xpm)
-
-#MAGICK_FLAGS=-scale 400% -filter box
-
-#convert: $
+$(DST_ASSETS): $(DST_ASSETS_DIR)/%.xpm: $(SRC_ASSETS_DIR)/%.png
+	@mkdir -p $(dir $@)
+	magick $< $(MAGICK_FLAGS) $@

@@ -6,7 +6,7 @@
 /*   By: ykimirti <42istanbul.com.tr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/01 17:56:30 by ykimirti          #+#    #+#             */
-/*   Updated: 2022/02/01 18:35:43 by ykimirti         ###   ########.tr       */
+/*   Updated: 2022/02/03 12:03:20 by ykimirti         ###   ########.tr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,8 +52,8 @@ int	new_color(unsigned char t,
 
 void	clear_line(void)
 {
-	printf("\x1b[1F");
-	printf("\x1b[2K");
+	ft_printf("\x1b[1F");
+	ft_printf("\x1b[2K");
 }
 
 /*void	draw_square(t_data *data, int ox, int oy, int sx, int sy, int color)*/

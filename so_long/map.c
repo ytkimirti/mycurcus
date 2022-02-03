@@ -6,7 +6,7 @@
 /*   By: ykimirti <42istanbul.com.tr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/26 16:16:02 by ykimirti          #+#    #+#             */
-/*   Updated: 2022/02/01 18:54:44 by ykimirti         ###   ########.tr       */
+/*   Updated: 2022/02/03 12:08:24 by ykimirti         ###   ########.tr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,14 +48,14 @@ bool	check_char(t_state *state,
 		)
 		return (error_msg("The map must be surrounded by '1's."));
 	if (state->map[row][col] == 'C')
-		SET_BIT(*seen_objects, 0);
+		set_bit(*seen_objects, 0);
 	if (state->map[row][col] == 'E')
-		SET_BIT(*seen_objects, 1);
+		set_bit(*seen_objects, 1);
 	if (state->map[row][col] == 'P')
 	{
 		state->px = col;
 		state->py = row;
-		SET_BIT(*seen_objects, 2);
+		set_bit(*seen_objects, 2);
 	}
 	return (true);
 }

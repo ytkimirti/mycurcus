@@ -6,7 +6,7 @@
 /*   By: ykimirti <42istanbul.com.tr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/19 13:12:20 by ykimirti          #+#    #+#             */
-/*   Updated: 2022/02/01 18:57:41 by ykimirti         ###   ########.tr       */
+/*   Updated: 2022/02/03 12:09:19 by ykimirti         ###   ########.tr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,16 +18,12 @@
 
 # include "libmlx/mlx.h"
 # include "libft/libft.h"
+
 # include <stdbool.h>
-# include <stdio.h>
+/*# include <stdio.h>*/
 # include <stdlib.h>
 # include <string.h>
 # include <errno.h>
-
-// BITFIELD MACROS
-# define SET_BIT(BF, N) BF |= ((uint64_t)0x1 << N)
-# define CLR_BIT(BF, N) BF &= ~((uint64_t)0x1 << N)
-# define CHK_BIT(BF, N) ((BF >> N) & 0x1)
 
 // Original scale was 16
 // Treat one pixel as 4
@@ -161,4 +157,12 @@ void	render_props(t_vars *vars, int x, int y, char c);
 void	render_entities(t_vars *vars);
 
 void	put_image(t_vars *vars, t_image *img, int x, int y);
+
+// Binary utils
+int		set_bit(int bf, int n);
+
+int		clr_bit(int bf, int n);
+
+int		chk_bit(int bf, int n);
+
 #endif
