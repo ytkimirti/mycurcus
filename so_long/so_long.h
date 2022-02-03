@@ -6,7 +6,7 @@
 /*   By: ykimirti <42istanbul.com.tr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/19 13:12:20 by ykimirti          #+#    #+#             */
-/*   Updated: 2022/02/03 12:12:55 by ykimirti         ###   ########.tr       */
+/*   Updated: 2022/02/03 13:25:43 by ykimirti         ###   ########.tr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,11 @@ typedef struct s_data
 }	t_data;
 
 typedef struct s_state {
+	int			ex;
+	int			ey;
+	int			esx;
+	int			esy;
+
 	int			px;
 	int			py;
 	int			psx;
@@ -73,7 +78,9 @@ typedef struct s_state {
 	int			move_count;
 	bool		p_facing;
 	int			p_timer;
+
 	char		*keys;
+
 	char		**map;
 	int			map_width;
 	int			map_height;
@@ -92,10 +99,13 @@ typedef struct s_images
 	t_image		wall_images[5];
 	t_image		coin_images[4];
 	t_image		player_idle[4];
-	t_image		ladder_image;
 	t_image		player_run[4];
+	t_image		enemy_idle[4];
+	t_image		enemy_run[4];
+	t_image		ladder_image;
 	t_image		collectible_image;
 	t_image		point;
+	t_image		digits[10];
 	bool		is_player_running;
 }	t_images;
 
@@ -119,6 +129,8 @@ char	**read_map(char *filename, t_state *state);
 
 int		close_application(t_vars *vars);
 
+void	game_over(t_vars *vars);
+
 void	my_pixelput(t_data *data, int x, int y, int color);
 
 void	clear_line(void);
@@ -141,6 +153,12 @@ void	move_player_to(t_vars *vars, int x, int y);
 
 void	move_player_by(t_vars *vars, int x, int y);
 
+void	move_enemy(t_vars *vars);
+
+void	update_enemy(t_vars *vars);
+
+void	set_enemy_pos(t_vars *vars);
+
 bool	in_map(t_vars *vars, int x, int y);
 
 char	find_char(t_vars *vars, int x, int y);
@@ -157,7 +175,14 @@ void	render_props(t_vars *vars, int x, int y, char c);
 
 void	render_entities(t_vars *vars);
 
+void	render_digits(t_vars *vars);
+
 void	put_image(t_vars *vars, t_image *img, int x, int y);
+
+// Loading
+int		load_img(t_vars *vars, t_image *dest, char *path);
+
+int		load_single(t_vars *vars, t_image *dest, char *path);
 
 // Binary utils
 int		set_bit(int bf, int n);

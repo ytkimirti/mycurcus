@@ -6,7 +6,7 @@
 /*   By: ykimirti <42istanbul.com.tr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/14 17:06:29 by ykimirti          #+#    #+#             */
-/*   Updated: 2022/02/01 18:54:24 by ykimirti         ###   ########.tr       */
+/*   Updated: 2022/02/03 13:25:17 by ykimirti         ###   ########.tr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,15 @@ int	update(t_vars *vars)
 	vars->time++;
 	vars->frame = vars->time / FRAME_TIME;
 	update_player(vars);
+	update_enemy(vars);
 	render(vars);
 	return (0);
+}
+
+void	game_over(t_vars *vars)
+{
+	ft_printf(RED "---- YOU LOST MUHHAHAHA ---\n" RST);
+	close_application(vars);
 }
 
 int	close_application(t_vars *vars)
@@ -70,6 +77,7 @@ int	main(int argc, char *argv[])
 	if (!load_images(&vars))
 		exit(0);
 	vars.state.keys = (char [256]){0};
+	set_enemy_pos(&vars);
 	mlx_hook(vars.win, ON_KEYDOWN, 0, handle_keydown, &vars);
 	mlx_hook(vars.win, ON_KEYUP, 0, handle_keyup, &vars);
 	mlx_hook(vars.win, ON_DESTROY, 0, close_application, &vars);

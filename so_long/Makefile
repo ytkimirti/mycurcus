@@ -3,7 +3,8 @@ LIBFT=libft/libft.a
 LIBFT_DIR=./libft
 
 SRCS=main.c utils.c player.c map.c error_handling.c load_images.c render.c \
-	 renderutils.c keys.c renderwrapper.c binaryutils.c
+	 renderutils.c keys.c renderwrapper.c binaryutils.c renderdigits.c \
+	 enemy.c loadutils.c
 HEADERS=so_long.h colors.h
 OBJS=$(SRCS:.c=.o)
 

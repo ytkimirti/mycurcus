@@ -6,7 +6,7 @@
 /*   By: ykimirti <42istanbul.com.tr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/20 18:15:08 by ykimirti          #+#    #+#             */
-/*   Updated: 2022/02/03 12:13:12 by ykimirti         ###   ########.tr       */
+/*   Updated: 2022/02/03 13:26:49 by ykimirti         ###   ########.tr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,6 @@ void	move_player_to(t_vars *vars, int x, int y)
 	vars->state.px = x;
 	vars->state.py = y;
 	vars->state.move_count++;
-	ft_printf("Moves count: %d\n", vars->state.move_count);
 }
 
 bool	is_there_collectibles(t_vars *vars)
@@ -67,12 +66,13 @@ void	move_player_by(t_vars *vars, int x, int y)
 	if (c == '1')
 		return ;
 	if (c == 'C')
-	{
 		vars->state.map[ty][tx] = '0';
-	}
+	if (tx == vars->state.ex && ty == vars->state.ey)
+		game_over(vars);
 	if (c == 'E' && !is_there_collectibles(vars))
 	{
 		close_application(vars);
 	}
 	move_player_to(vars, vars->state.px + x, vars->state.py + y);
+	move_enemy(vars);
 }

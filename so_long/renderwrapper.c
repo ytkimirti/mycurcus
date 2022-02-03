@@ -6,7 +6,7 @@
 /*   By: ykimirti <42istanbul.com.tr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/01 18:08:33 by ykimirti          #+#    #+#             */
-/*   Updated: 2022/02/01 18:10:44 by ykimirti         ###   ########.tr       */
+/*   Updated: 2022/02/03 12:38:43 by ykimirti         ###   ########.tr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,4 +44,5 @@ void	render(t_vars *vars)
 	render_wrapper(vars, render_tiles);
 	render_wrapper(vars, render_props);
 	render_entities(vars);
+	render_digits(vars);
 }

@@ -6,7 +6,7 @@
 /*   By: ykimirti <42istanbul.com.tr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/01 18:05:18 by ykimirti          #+#    #+#             */
-/*   Updated: 2022/02/03 12:15:12 by ykimirti         ###   ########.tr       */
+/*   Updated: 2022/02/03 12:54:20 by ykimirti         ###   ########.tr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,13 +47,23 @@ void	render_point(t_vars *vars, int sx, int sy)
 
 void	render_entities(t_vars *vars)
 {
-	t_image	*img;
+	t_image	*pimg;
+	t_image	*eimg;
 
 	if (vars->state.p_timer > 0)
-		img = &vars->images.player_run[vars->frame % 4];
+	{
+		pimg = &vars->images.player_run[vars->frame % 4];
+		eimg = &vars->images.enemy_run[vars->frame % 4];
+	}
 	else
-		img = &vars->images.player_idle[vars->frame % 4];
-	render_rectangular(vars, img,
+	{
+		pimg = &vars->images.player_idle[vars->frame % 4];
+		eimg = &vars->images.enemy_idle[vars->frame % 4];
+	}
+	render_rectangular(vars, eimg,
+		vars->state.esx,
+		vars->state.esy);
+	render_rectangular(vars, pimg,
 		vars->state.psx,
 		vars->state.psy);
 }
