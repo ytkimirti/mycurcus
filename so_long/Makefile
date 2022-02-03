@@ -4,7 +4,7 @@ LIBFT_DIR=./libft
 
 SRCS=main.c utils.c player.c map.c error_handling.c load_images.c render.c \
 	 renderutils.c keys.c renderwrapper.c binaryutils.c
-HEADERS=so_long.h
+HEADERS=so_long.h colors.h
 OBJS=$(SRCS:.c=.o)
 
 CC=gcc

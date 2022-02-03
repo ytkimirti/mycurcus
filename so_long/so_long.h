@@ -6,7 +6,7 @@
 /*   By: ykimirti <42istanbul.com.tr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/19 13:12:20 by ykimirti          #+#    #+#             */
-/*   Updated: 2022/02/03 12:09:19 by ykimirti         ###   ########.tr       */
+/*   Updated: 2022/02/03 12:12:55 by ykimirti         ###   ########.tr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,7 @@ typedef struct s_state {
 	int			py;
 	int			psx;
 	int			psy;
+	int			move_count;
 	bool		p_facing;
 	int			p_timer;
 	char		*keys;

@@ -6,7 +6,7 @@
 /*   By: ykimirti <42istanbul.com.tr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/26 16:16:02 by ykimirti          #+#    #+#             */
-/*   Updated: 2022/02/03 12:08:24 by ykimirti         ###   ########.tr       */
+/*   Updated: 2022/02/03 12:16:49 by ykimirti         ###   ########.tr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,14 +48,14 @@ bool	check_char(t_state *state,
 		)
 		return (error_msg("The map must be surrounded by '1's."));
 	if (state->map[row][col] == 'C')
-		set_bit(*seen_objects, 0);
+		*seen_objects = set_bit(*seen_objects, 0);
 	if (state->map[row][col] == 'E')
-		set_bit(*seen_objects, 1);
+		*seen_objects = set_bit(*seen_objects, 1);
 	if (state->map[row][col] == 'P')
 	{
 		state->px = col;
 		state->py = row;
-		set_bit(*seen_objects, 2);
+		*seen_objects = set_bit(*seen_objects, 2);
 	}
 	return (true);
 }
@@ -66,7 +66,6 @@ bool	confirm_map(char **map, t_state *state)
 	int	col;
 	int	seen_objects;
 
-	ft_printf(CYN "Checking map\n" RST);
 	row = 0;
 	seen_objects = 0;
 	state->map_width = ft_strlen(map[0]);
@@ -85,6 +84,7 @@ bool	confirm_map(char **map, t_state *state)
 	}
 	if (seen_objects != 7)
 		return (error_msg("There must be at least one C, E and P"));
+	ft_printf(CYN "Map correct!\n" RST);
 	return (true);
 }
 

@@ -6,7 +6,7 @@
 /*   By: ykimirti <42istanbul.com.tr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/01 18:31:06 by ykimirti          #+#    #+#             */
-/*   Updated: 2022/02/01 18:36:36 by ykimirti         ###   ########.tr       */
+/*   Updated: 2022/02/03 12:18:36 by ykimirti         ###   ########.tr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@
 # define UCYN "\e[4;36m"
 # define UWHT "\e[4;37m"
 
-//Regular background
+//Regular backgroundd
 # define BLKB "\e[40m"
 # define REDB "\e[41m"
 # define GRNB "\e[42m"

@@ -6,7 +6,7 @@
 /*   By: ykimirti <42istanbul.com.tr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/20 18:15:08 by ykimirti          #+#    #+#             */
-/*   Updated: 2022/02/01 18:52:07 by ykimirti         ###   ########.tr       */
+/*   Updated: 2022/02/03 12:13:12 by ykimirti         ###   ########.tr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,8 @@ void	move_player_to(t_vars *vars, int x, int y)
 {
 	vars->state.px = x;
 	vars->state.py = y;
+	vars->state.move_count++;
+	ft_printf("Moves count: %d\n", vars->state.move_count);
 }
 
 bool	is_there_collectibles(t_vars *vars)

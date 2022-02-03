@@ -6,7 +6,7 @@
 /*   By: ykimirti <42istanbul.com.tr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/01 18:05:18 by ykimirti          #+#    #+#             */
-/*   Updated: 2022/02/01 18:11:12 by ykimirti         ###   ########.tr       */
+/*   Updated: 2022/02/03 12:15:12 by ykimirti         ###   ########.tr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,6 @@ void	render_rectangular(t_vars *vars, t_image *img, int x, int y)
 	y += TILE_SIZE;
 	x += (TILE_SIZE - img->sx) / 2;
 	y -= img->sy + ENTITY_BOTTOM_OFFSET;
-	render_point(vars, 40, 40);
 	put_image(vars,
 		img,
 		x,
