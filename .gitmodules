@@ -1,6 +1,12 @@
 [submodule "so_long/libft"]
 	path = so_long/libft
 	url = https://github.com/ytkimirti/libft
+<<<<<<< HEAD
 [submodule "push_swap/libft"]
 	path = push_swap/libft
 	url = git@github.com:ytkimirti/libft.git
+=======
+[submodule "minitalk/libft"]
+	path = minitalk/libft
+	url = git@github.com:ytkimirti/libft
+>>>>>>> 3d33561 (Add minitalk)
