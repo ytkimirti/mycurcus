@@ -6,7 +6,7 @@
 /*   By: ykimirti <42istanbul.com.tr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/10 15:47:42 by ykimirti          #+#    #+#             */
-/*   Updated: 2022/02/14 17:04:13 by ykimirti         ###   ########.tr       */
+/*   Updated: 2022/02/21 19:48:45 by ykimirti         ###   ########.tr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@
 #include "libft/libft.h"
 #include "colors.h"
 #include <stdbool.h>
+
+#include <limits.h>
 
 typedef struct
 {
@@ -47,5 +49,12 @@ void	rrr(t_vars *vars, bool print);
 void	init_cli(t_vars *vars);
 
 void	init(t_vars *vars, int args[], int len);
+
+int		find_min(int nums[], int len);
+int		find_max(int nums[], int len);
+
+// Sorters
+void	sort_triple(t_vars *vars);
+void	sort_triple_test(t_vars *vars);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: ykimirti <42istanbul.com.tr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/14 17:07:43 by ykimirti          #+#    #+#             */
-/*   Updated: 2022/02/14 17:35:28 by ykimirti         ###   ########.tr       */
+/*   Updated: 2022/02/21 19:26:06 by ykimirti         ###   ########.tr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,5 +89,5 @@ void	init_cli(t_vars *vars)
 
 		free(cmd);
 	}
-	ft_printf(RED "Goodbye..." RST);
+	ft_printf(BRED "Bye...\n" RST);
 }

@@ -25,6 +25,9 @@ void	init(t_vars *vars, int args[], int len)
 
 void	test_funcs(t_vars *vars)
 {
+	rra(vars, true);
+	rrb(vars, true);
+
 	sa(vars, true);
 	sb(vars, true);
 	ss(vars, true);
@@ -35,21 +38,12 @@ void	test_funcs(t_vars *vars)
 	ra(vars, true);
 	rb(vars, true);
 	rr(vars, true);
-
-	rra(vars, true);
-	rrb(vars, true);
 	rrr(vars, true);
-}
-
-void	three_sort(t_vars *vars)
-{
-	bool	top_bigger;
 }
 
 int	main(void)
 {
 	t_vars	vars;
 
-	three_sort(&vars);
-	init_cli(&vars);
+	sort_triple_test(&vars);
 }

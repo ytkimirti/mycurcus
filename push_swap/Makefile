@@ -25,3 +25,6 @@ makelib:
 
 $(NAME): $(OBJS)
 	$(CC) $(LFLAGS) -o $@ $^
+
+clean:
+	rm -rf $(OBJS)
