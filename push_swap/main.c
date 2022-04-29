@@ -45,5 +45,6 @@ int	main(void)
 {
 	t_vars	vars;
 
+	vars.print_lists = false;
 	sort_triple_test(&vars);
 }

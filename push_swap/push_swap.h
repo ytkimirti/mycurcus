@@ -6,7 +6,7 @@
 /*   By: ykimirti <42istanbul.com.tr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/10 15:47:42 by ykimirti          #+#    #+#             */
-/*   Updated: 2022/02/21 19:48:45 by ykimirti         ###   ########.tr       */
+/*   Updated: 2022/03/08 17:26:07 by ykimirti         ###   ########.tr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ typedef struct
 	int	lb;
 	int	*na;
 	int	*nb;
+	bool print_lists;
 } t_vars;
 
 void	render(t_vars *vars, char *move, bool print);
@@ -56,5 +57,7 @@ int		find_max(int nums[], int len);
 // Sorters
 void	sort_triple(t_vars *vars);
 void	sort_triple_test(t_vars *vars);
+
+void	sort_wheel(t_vars *vars);
 
 #endif
