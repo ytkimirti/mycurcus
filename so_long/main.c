@@ -6,7 +6,7 @@
 /*   By: ykimirti <42istanbul.com.tr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/14 17:06:29 by ykimirti          #+#    #+#             */
-/*   Updated: 2022/02/03 13:25:17 by ykimirti         ###   ########.tr       */
+/*   Updated: 2022/04/29 13:44:23 by ykimirti         ###   ########.tr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,4 +83,5 @@ int	main(int argc, char *argv[])
 	mlx_hook(vars.win, ON_DESTROY, 0, close_application, &vars);
 	mlx_loop_hook(vars.mlx, update, &vars);
 	mlx_loop(vars.mlx);
+	pause();
 }

@@ -34,7 +34,7 @@ srun: sre
 	./$(NAME) $(TEST_MAP)
 
 makelib:
-	make -C $(LIBFT_DIR) bonus
+	make -C $(LIBFT_DIR) all
 
 debug: $(NAME)
 	echo ">------  DEBUG MODE --------<"
