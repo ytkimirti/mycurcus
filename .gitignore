@@ -1,3 +1,4 @@
 libft-unit-test/
 *.o
+*.d
 .DS_Store

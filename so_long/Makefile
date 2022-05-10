@@ -45,12 +45,27 @@ SRC_PCT = $(shell expr 100 \* $(SRC_COUNT) / $(SRC_COUNT_TOT))
 
 all: $(NAME)
 
-$(NAME): libft/libft.a libmlx/libmlx.a $(OBJ)
-	$(CC) $(CFLAGS) $(CDEBUG) $(OBJ) $(LIBS) -o $@
-	@$(PRINTF) "$(GRN)$(NAME) is up to date!$(RST)\n"
-
 $(OBJ): | $(OBJ_DIR)
 
+$(OBJ_DIR):
+	@mkdir -p $(OBJ_DIR)
+
+$(NAME): libft/libft.a libmlx/libmlx.a $(OBJ)
+	@$(CC) $(CFLAGS) $(CDEBUG) $(OBJ) $(LIBS) -o $@
+	@$(PRINTF) "$(GRN)$(NAME) is up to date!$(RST)\n"
+
+HAS_COMPILED="false"
+
+$(OBJ_DIR)/%.o: %.c
+	@if [ "$(HAS_COMPILED)" == "false" ]; then \
+		$(PRINTF) "\n"; \
+		fi
+	@$(eval HAS_COMPILED = "true")
+	@$(eval SRC_COUNT = $(shell expr $(SRC_COUNT) + 1))
+	@$(PRINTF) "$(CLRLINE)[ %d/%d (%d%%) ] Compiling $(BLU)$<$(RST)...\n" $(SRC_COUNT) $(SRC_COUNT_TOT) $(SRC_PCT)
+	@$(CC) $(CFLAGS) $(CDEBUG) -c $< -o $@
+
+# Installing libraries
 libft/libft.a:
 	@if [ ! -d "libft" ]; then \
 		git clone --depth 1 https://github.com/ytkimirti/libft.git; \
@@ -60,23 +75,18 @@ libft/libft.a:
 libmlx/libmlx.a:
 	@make all -j8 -C libmlx/
 
-cleanlib:
+cleanpackages:
 	@make clean -j8 libmlx/
 	@make fclean -j8 libft/
 
-$(OBJ_DIR)/%.o: %.c
-	@$(eval SRC_COUNT = $(shell expr $(SRC_COUNT) + 1))
-	@$(PRINTF) "$(CLRLINE)[ %d/%d (%d%%) ] Compiling $(BLU)$<$(RST)...\n" $(SRC_COUNT) $(SRC_COUNT_TOT) $(SRC_PCT)
-	@$(CC) $(CFLAGS) $(CDEBUG) -c $< -o $@
-
+# Thanks to abdulselam hocam
 debug: CFLAGS += -g
 debug: re
 
 address: CFLAGS += -fsanitize=address -g
 address: re
 
-$(OBJ_DIR):
-	@mkdir -p $(OBJ_DIR)
+bonus: all
 
 clean:
 	@$(PRINTF) "$(CYN)Cleaning up object files in $(OBJ_DIR)...$(RST)\n"
