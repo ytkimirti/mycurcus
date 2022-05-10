@@ -6,7 +6,7 @@
 /*   By: ykimirti <42istanbul.com.tr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/26 16:16:02 by ykimirti          #+#    #+#             */
-/*   Updated: 2022/02/03 12:16:49 by ykimirti         ###   ########.tr       */
+/*   Updated: 2022/05/10 15:52:45 by ykimirti         ###   ########.tr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,8 @@ bool	check_char(t_state *state,
 		int *seen_objects,
 		int row, int col)
 {
+	if (!ft_strchr("01PEC", state->map[row][col]))
+		return (error_msg("The map must only contain 01PEC characters!"));
 	if ((
 			(row == 0 || row == state->map_height - 1)
 			&& state->map[row][col] != '1') ||
@@ -74,7 +76,8 @@ bool	confirm_map(char **map, t_state *state)
 		col = 0;
 		while (map[row][col] != 0 && map[row][col] != '\0')
 		{
-			check_char(state, &seen_objects, row, col);
+			if (!check_char(state, &seen_objects, row, col))
+				return (false);
 			col++;
 		}
 		row++;
@@ -87,54 +90,6 @@ bool	confirm_map(char **map, t_state *state)
 	ft_printf(CYN "Map correct!\n" RST);
 	return (true);
 }
-
-/*bool	confirm_map(char **map, t_state *state)*/
-/*{*/
-	/*int	row;*/
-	/*int	col;*/
-	/*int	seen_objects;*/
-
-	/*printf(GRN "Checking map\n" RST);*/
-
-	/*printf("%s", CYN);*/
-	/*row = 0;*/
-	/*seen_objects = 0;*/
-	/*state->map_width = ft_strlen(map[0]); [> Reset the width <]*/
-	/*while (row < state->map_height)*/
-	/*{*/
-		/*col = 0;*/
-		/*while (map[row][col] != 0 && map[row][col] != '\0')*/
-		/*{*/
-			/*check_char(state, &seen_objects, row, col);*/
-			/*col++;*/
-		/*}*/
-		/*row++;*/
-		/*if (state->map_width != col)*/
-			/*return (error_msg("The map must be rectangular."));*/
-		/*state->map_width = col;*/
-	/*}*/
-	/*if (seen_objects != 7)*/
-		/*return (error_msg("There must be at least one C, E and P"));*/
-	/*printf("Map width\t%d\nMap height\t%d\n",
-	 * state->map_width, state->map_height);*/
-	/*printf("%s", "\e[0m"); [> RESET <]*/
-
-	/*printf("%s", "\e[0;32m"); [> GREEN <]*/
-	/*printf("Map correct!\n");*/
-	/*printf("%s", "\e[0m"); [> RESET <]*/
-	/*return (true);*/
-/*}*/
-/*void	print_map(char **map)*/
-/*{*/
-	/*for (int i = 0; i < 5; i++)*/
-	/*{*/
-		/*for (int j = 0; j < 13; j++)*/
-		/*{*/
-			/*printf("%c", map[i][j]);*/
-		/*}*/
-		/*printf("\n");*/
-	/*}*/
-/*}*/
 
 bool	open_file(char *filename, int *fd)
 {

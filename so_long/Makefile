@@ -111,6 +111,9 @@ git:
 	git commit
 	git push
 
+run: all
+	@./$(NAME) test.ber
+
 # ----------  IMAGE CONVERSION -----------
 SRC_ASSETS_DIR := assets_png
 DST_ASSETS_DIR := assets
