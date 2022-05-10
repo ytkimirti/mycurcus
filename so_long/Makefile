@@ -1,4 +1,3 @@
-
 BIN ?= so_long
 OBJ_DIR ?= obj
 
@@ -46,25 +45,24 @@ SRC_PCT = $(shell expr 100 \* $(SRC_COUNT) / $(SRC_COUNT_TOT))
 
 all: $(NAME)
 
-$(NAME): | pre
-
-$(NAME): $(OBJ)
-	@echo "COMPILING"
+$(NAME): libft/libft.a libmlx/libmlx.a $(OBJ)
 	$(CC) $(CFLAGS) $(CDEBUG) $(OBJ) $(LIBS) -o $@
 	@$(PRINTF) "$(GRN)$(NAME) is up to date!$(RST)\n"
 
-pre:
-	@echo "Pre job"
-
 $(OBJ): | $(OBJ_DIR)
 
-install_packages:
-	@$(PRINTF) "INSTALLING PACKAGES\n\n"
+libft/libft.a:
 	@if [ ! -d "libft" ]; then \
 		git clone --depth 1 https://github.com/ytkimirti/libft.git; \
-		fi
+	fi
 	@make all -j8 -C libft/
+
+libmlx/libmlx.a:
 	@make all -j8 -C libmlx/
+
+cleanlib:
+	@make clean -j8 libmlx/
+	@make fclean -j8 libft/
 
 $(OBJ_DIR)/%.o: %.c
 	@$(eval SRC_COUNT = $(shell expr $(SRC_COUNT) + 1))
@@ -119,4 +117,4 @@ $(DST_ASSETS): $(DST_ASSETS_DIR)/%.xpm: $(SRC_ASSETS_DIR)/%.png
 
 -include $(OBJ_DIR)/*.d
 
-.PHONY: all clean fclean re bonus norminette create_dirs install_packages git re
+.PHONY: all clean fclean cleanlib re bonus norminette create_dirs install_packages git re
