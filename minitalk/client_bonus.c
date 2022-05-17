@@ -1,3 +1,5 @@
+
+
 #include <signal.h>
 #include <stdio.h>
 #include <unistd.h>
@@ -7,6 +9,7 @@
 
 void	send_bit(int pid, bool bit)
 {
+	ft_printf(CYN "Sending bit: " RED "%d\n" RST, bit);
 	if (bit == 1)
 		kill(pid, SIGUSR1);
 	else
@@ -28,6 +31,7 @@ void send_char(int pid, char c)
 
 void send_str(int pid, char *str)
 {
+	ft_printf(GRN "Sending string" YEL "\"%s\"" RST, str);
 	while (*str)
 	{
 		send_char(pid, *str);
@@ -46,12 +50,5 @@ int main(int argc, char **argv)
 		return (1);
 	}
 	pid = ft_atoi(argv[1]);
-	if (pid <= 0)
-	{
-		char *errmsg = ft_sprintf(RED "%d" RST " is not a valid PID\n", pid);
-		ft_putstr_fd(errmsg, 2);
-		free(errmsg);
-		exit(1);
-	}
 	send_str(pid, argv[2]);
 }
